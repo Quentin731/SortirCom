@@ -65,6 +65,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $sorties;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Ville::class, inversedBy="users")
+     */
+    private $ville;
+
     public function __construct()
     {
         $this->sorties = new ArrayCollection();
@@ -222,6 +227,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeSorty(Sortie $sorty): self
     {
         $this->sorties->removeElement($sorty);
+
+        return $this;
+    }
+
+    public function getVille(): ?Ville
+    {
+        return $this->ville;
+    }
+
+    public function setVille(?Ville $ville): self
+    {
+        $this->ville = $ville;
 
         return $this;
     }

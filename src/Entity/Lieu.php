@@ -32,22 +32,17 @@ class Lieu
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $codePostal;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $ville;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $pays;
 
     /**
      * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="lieu")
      */
     private $sorties;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Ville::class, inversedBy="lieus")
+     */
+    private $ville;
 
     public function __construct()
     {
@@ -79,30 +74,6 @@ class Lieu
     public function setAdresse(string $adresse): self
     {
         $this->adresse = $adresse;
-
-        return $this;
-    }
-
-    public function getCodePostal(): ?string
-    {
-        return $this->codePostal;
-    }
-
-    public function setCodePostal(string $codePostal): self
-    {
-        $this->codePostal = $codePostal;
-
-        return $this;
-    }
-
-    public function getVille(): ?string
-    {
-        return $this->ville;
-    }
-
-    public function setVille(string $ville): self
-    {
-        $this->ville = $ville;
 
         return $this;
     }
@@ -145,6 +116,18 @@ class Lieu
                 $sorty->setLieu(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getVille(): ?Ville
+    {
+        return $this->ville;
+    }
+
+    public function setVille(?Ville $ville): self
+    {
+        $this->ville = $ville;
 
         return $this;
     }

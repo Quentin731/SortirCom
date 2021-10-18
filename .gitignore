@@ -19,3 +19,5 @@
 .phpunit.result.cache
 ###< phpunit/phpunit ###
 /.idea
+/.env
+/.env.test

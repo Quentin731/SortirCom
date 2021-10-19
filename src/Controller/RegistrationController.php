@@ -45,4 +45,36 @@ class RegistrationController extends AbstractController
             'registrationForm' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/modification_user", name="app_edit_register")
+     */
+    public function modification(Request $request, UserPasswordHasherInterface $userPasswordHasherInterface): Response
+    {
+        $user = $this->getUser();
+        if(is_null($user)){
+            return $this->redirectToRoute('home');
+        }
+        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user->setPassword(
+                $userPasswordHasherInterface->hashPassword(
+                    $user,
+                    $form->get('plainPassword')->getData()
+                )
+            );
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+            // do anything else you need here, like send an email
+
+            return $this->redirectToRoute('home');
+        }
+
+        return $this->render('registration/edit.register.html.twig', [
+            'registrationForm' => $form->createView(),
+        ]);
+    }
 }

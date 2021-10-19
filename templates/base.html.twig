@@ -17,22 +17,8 @@
                 href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css"
                 rel="stylesheet"
         />
-        <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <!-- Container wrapper -->
             <div class="container">
-                <!-- Navbar brand -->
-                <a class="navbar-brand me-2">
-                    <img
-                            src="#"
-                            height="16"
-                            alt=""
-                            loading="lazy"
-                            style="margin-top: -1px;"
-                    />
-                </a>
-
-                <!-- Toggle button -->
                 <button
                         class="navbar-toggler"
                         type="button"
@@ -50,7 +36,7 @@
                     <!-- Left links -->
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Dashboard</a>
+                            <a class="nav-link" href="{{ path('home') }}">Liste Sorties</a>
                         </li>
                     </ul>
                     <!-- Left links -->
@@ -62,7 +48,7 @@
                         <a href="{{ path('app_register') }}" class="btn btn-primary me-3">
                             Inscritpion
                         </a>
-                        <a href="{{ path('app_register') }}">
+                        <a href="{{ path('app_edit_register') }}" class="btn  btn-floating">
                             <i class="fas fa-user fa-2x"></i>
                         </a>
                         <a  class="btn btn-link px-3 me-2">

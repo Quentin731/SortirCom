@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier{% endblock %}
+
+{% block body %}
+
+
+    <div class="container mt-4 mb-4" style="max-width: 500px">
+        <div class="row">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Modifier mon profil</h5>
+                    {{ form_start(registrationForm) }}
+                    {{ form_widget(registrationForm.username, {'attr': {'class': 'invisible'}}) }}
+                    {{ form_row(registrationForm.name) }}
+                    {{ form_row(registrationForm.firstname) }}
+                    {{ form_row(registrationForm.email) }}
+                    {{ form_row(registrationForm.phoneNumber) }}
+                    {{ form_row(registrationForm.ville) }}
+                    {{ form_row(registrationForm.plainPassword, {
+                        label: 'Mot de Passe'
+                    }) }}
+                    {{ form_row(registrationForm.agreeTerms) }}
+
+                    <button type="submit" class="btn btn-block btn-primary">Enregistrer</button>
+                    {{ form_end(registrationForm) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -12,14 +12,5 @@ class SortieCrudController extends AbstractCrudController
         return Sortie::class;
     }
 
-    /*
-    public function configureFields(string $pageName): iterable
-    {
-        return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
-        ];
-    }
-    */
+
 }

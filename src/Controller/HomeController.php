@@ -10,6 +10,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface; // Nous appelons le bundle KNP Paginator
+
 
 class HomeController extends AbstractController
 {
@@ -29,13 +31,18 @@ class HomeController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function index(Request $request): Response
+    public function index(Request $request,PaginatorInterface $paginator): Response
     {
 
         $sorties = $this->entityManager->getRepository(Sortie::class)->findAll();
+        $paginateSorties= $paginator->paginate(
+            $sorties,
+            $request->query->getInt('page', 1),
+            6
+        );
 
         return $this->render('home/index.html.twig', [
-            'listeSorties' => $sorties
+            'listeSorties' => $paginateSorties
         ]);
     }
 }

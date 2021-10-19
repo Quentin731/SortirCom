@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CreateSortieController!{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
+    <script>
+        jQuery(document).ready(function() {
+            $('.js-datepicker').datepicker();
+        });
+    </script>
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-3" style="max-width: 1000px">
+        <h3 class="text-center">Créer votre sortie</h3>
+        {{ form_start(createSortie) }}
+
+        <div class="row" >
+            <div class="col-6">
+                {{ form_row(createSortie.nom) }}
+                {{ form_row(createSortie.dateSortie) }}
+                {{ form_row(createSortie.dateLimite) }}
+                {{ form_row(createSortie.nombrePlace) }}
+                {{ form_row(createSortie.duree) }}
+                {{ form_row(createSortie.description) }}
+                <button type="submit" class="btn btn-block btn-primary">Valider</button>
+            </div>
+            <div class="col-6">
+                {{ form_row(createSortie.lieu) }}
+            </div>
+        </div>
+        {{ form_end(createSortie) }}
+    </div>
+{% endblock %}

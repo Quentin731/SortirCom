@@ -32,17 +32,20 @@
                             <td>{{ sortie.dateSortie|date("m/d/Y") }}</td>
                             <td>{{ sortie.getEndDate }}</td>
                             <td>{{ sortie.getSizeOfUsers() }}/{{ sortie.nombrePlace }}</td>
-                            <td></td>
+                            <td>{{ sortie.getEtatToString() }}</td>
                             <td>
                                 {% if sortie.getParticipation(app.user) == 1 %}X{% endif %}
                             </td>
                             <td>{{ sortie.organisateur }}</td>
-                            <td></td>
+                            <td>
+                                <a href="#" class="btn btn-outline-primary btn-floating"><i class="fas fa-edit"></i></a>
+                                <a href="#" class="btn btn-outline-danger btn-floating"><i class="fas fa-trash"></i></a>
+                            </td>
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
-
+                {{ knp_pagination_render(listeSorties) }}
             </div>
         </div>
     </div>

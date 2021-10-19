@@ -70,9 +70,10 @@ class Sortie
     private $endDate;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="listSorties")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="listSorties", cascade={"persist"})
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
-    private $Organisateur;
+    private $organisateur;
 
     /**
      * @ORM\Column(type="smallint", nullable=true)
@@ -226,12 +227,12 @@ class Sortie
 
     public function getOrganisateur(): ?User
     {
-        return $this->Organisateur;
+        return $this->organisateur;
     }
 
-    public function setOrganisateur(?User $Organisateur): self
+    public function setOrganisateur(?User $organisateur): self
     {
-        $this->Organisateur = $Organisateur;
+        $this->organisateur = $organisateur;
 
         return $this;
     }

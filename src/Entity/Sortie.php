@@ -77,7 +77,7 @@ class Sortie
     /**
      * @ORM\Column(type="date", nullable=true)
      */
-    private $isFinished;
+    private $endDate;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="listSorties")
@@ -241,14 +241,14 @@ class Sortie
         return $this;
     }
 
-    public function getIsFinished(): ?\DateTimeInterface
+    public function getEndDate(): ?\DateTimeInterface
     {
-        return $this->isFinished;
+        return $this->endDate;
     }
 
-    public function setIsFinished(\DateTimeInterface $isFinished): self
+    public function setEndDate(\DateTimeInterface $endDate): self
     {
-        $this->isFinished = $isFinished;
+        $this->endDate = $endDate;
 
         return $this;
     }
@@ -273,5 +273,9 @@ class Sortie
             }
         }
         return $values;
+    }
+
+    public function getSizeOfUsers() {
+        return sizeof($this->users);
     }
 }

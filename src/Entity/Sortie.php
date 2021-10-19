@@ -60,16 +60,6 @@ class Sortie
     private $users;
 
     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $isPublished;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $isDeleted;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $motifAnnulation;
@@ -83,6 +73,11 @@ class Sortie
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="listSorties")
      */
     private $Organisateur;
+
+    /**
+     * @ORM\Column(type="smallint", nullable=true)
+     */
+    private $state;
 
     public function __construct()
     {
@@ -205,30 +200,6 @@ class Sortie
         return $this;
     }
 
-    public function getIsPublished(): ?bool
-    {
-        return $this->isPublished;
-    }
-
-    public function setIsPublished(bool $isPublished): self
-    {
-        $this->isPublished = $isPublished;
-
-        return $this;
-    }
-
-    public function getIsDeleted(): ?bool
-    {
-        return $this->isDeleted;
-    }
-
-    public function setIsDeleted(bool $isDeleted): self
-    {
-        $this->isDeleted = $isDeleted;
-
-        return $this;
-    }
-
     public function getMotifAnnulation(): ?string
     {
         return $this->motifAnnulation;
@@ -277,5 +248,36 @@ class Sortie
 
     public function getSizeOfUsers() {
         return sizeof($this->users);
+    }
+
+    public function getEtatToString(){
+        $dateNow= date("Y-m-d H:i:s");
+        if($this->isDeleted){
+            return "Annulée";
+        }
+        if($this->isPublished){
+            if($this->dateLimite<$dateNow && $this->getSizeOfUsers()==$this->nombrePlace){
+                return "Ouvert";
+            }
+            else{
+                return "fermée";
+            }
+        }
+        else{
+            return "En création";
+        }
+
+}
+
+    public function getState(): ?int
+    {
+        return $this->state;
+    }
+
+    public function setState(?int $state): self
+    {
+        $this->state = $state;
+
+        return $this;
     }
 }

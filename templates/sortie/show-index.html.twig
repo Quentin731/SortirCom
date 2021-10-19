@@ -1,0 +1,111 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container mt-4 mb-4" style="max-width: 800px">
+        <div class="row">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h2 class="card-title">Détails de la sortie</h2>
+                    <div class="row mt-2 mb-2">
+                        <div class="row">
+                            <div class="col-6 font-weight-bold">
+                                <p class="card-text bold">Nom de la sortie :</p>
+                            </div>
+                            <div class="col-6">
+                                <p>{{ sortie.nom }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 font-weight-bold">
+                                <p class="card-text">Date et heure de la sortie :</p>
+                            </div>
+                            <div class="col-6">
+                                <p>{{ sortie.dateSortie }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 font-weight-bold">
+                                <p class="card-text">Date limite d'inscription :</p>
+                            </div>
+                            <div class="col-6">
+                                <p>{{ sortie.dateLimite }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 font-weight-bold">
+                                <p class="card-text">Nombre de places :</p>
+                            </div>
+                            <div class="col-6">
+                                <p>{{ sortie.nombrePlace }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 font-weight-bold">
+                                <p class="card-text">Durée (en minutes) :</p>
+                            </div>
+                            <div class="col-6">
+                                <p>{{ sortie.duree }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 font-weight-bold">
+                                <p class="card-text">Description et infos</p>
+                            </div>
+                            <div class="col-6">
+                                <p>{{ sortie.description }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 font-weight-bold">
+                                <p class="card-text">Ville organisatrice :</p>
+                            </div>
+                            <div class="col-6">
+                                <p></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 font-weight-bold">
+                                <p class="card-text">Lieu :</p>
+                            </div>
+                            <div class="col-6">
+                                <p>{{ sortie.lieu }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 font-weight-bold">
+                                <p class="card-text">Rue :</p>
+                            </div>
+                            <div class="col-6">
+                                <p></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 font-weight-bold">
+                                <p class="card-text">Code postal :</p>
+                            </div>
+                            <div class="col-6">
+                                <p></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 font-weight-bold">
+                                <p class="card-text">Latitude</p>
+                            </div>
+                            <div class="col-6">
+                                <p></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 font-weight-bold">
+                                <p class="card-text">Longitude :</p>
+                            </div>
+                            <div class="col-6">
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

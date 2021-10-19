@@ -57,9 +57,11 @@ class AppFixtures extends Fixture
         }
 
         for ($i = 0; $i < 100; $i++) {
-            $dateLimite = $faker->date();
+            $dateLimite = $faker->dateTime();
             $dateSortie = $faker->dateTime();
             if ($dateSortie < $dateLimite){
+                $dateLimite = date_create($dateLimite->format('Y-m-d'));
+
                 $sortie = new Sortie();
                 $sortie->setLieu($faker->randomElement($lieux));
                 $sortie->setNom($faker->catchPhrase());

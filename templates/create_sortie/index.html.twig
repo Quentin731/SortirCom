@@ -25,10 +25,14 @@
                 {{ form_row(createSortie.nombrePlace) }}
                 {{ form_row(createSortie.duree) }}
                 {{ form_row(createSortie.description) }}
-                <button type="submit" class="btn btn-block btn-primary">Valider</button>
             </div>
             <div class="col-6">
                 {{ form_row(createSortie.lieu) }}
+            </div>
+            <div class="row col-3" style="display:inline">
+                <button type="submit" class="btn btn-block btn-primary">Enregistrer</button>
+                <button type="submit" class="btn btn-block btn-primary">Publier la sortie</button>
+                <button type="submit" class="btn btn-block btn-primary">Annuler</button>
             </div>
         </div>
         {{ form_end(createSortie) }}

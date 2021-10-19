@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Lieu;
+use App\Entity\Sortie;
 use App\Entity\User;
 use App\Entity\Ville;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -18,7 +19,7 @@ class AppFixtures extends Fixture
 
         //ville
         $villes = [];
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             $ville = new Ville();
             $ville->setLibelle($faker->city());
             $ville->setCodePostal($faker->postcode());
@@ -28,7 +29,7 @@ class AppFixtures extends Fixture
 
         //lieux
         $lieux = [];
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             $lieu = new Lieu();
             $lieu->setNom($faker->streetName());
             $lieu->setAdresse($faker->address());
@@ -39,7 +40,7 @@ class AppFixtures extends Fixture
         }
 
         $users = [];
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             $user = new User();
             $user->setUsername($faker->userName());
 
@@ -53,6 +54,24 @@ class AppFixtures extends Fixture
             $user->setVille($faker->randomElement($villes));
             $manager->persist($user);
             $users[] = $user;
+        }
+
+        for ($i = 0; $i < 100; $i++) {
+            $dateLimite = $faker->dateTime();
+            $dateSortie = $faker->dateTime();
+            if ($dateSortie < $dateLimite){
+                $sortie = new Sortie();
+                $sortie->setLieu($faker->randomElement($lieux));
+                $sortie->setNom($faker->catchPhrase());
+                $sortie->setDateLimite($dateLimite);
+                $sortie->setDateSortie($dateSortie);
+                $sortie->setDuree($faker->numberBetween($min = 15, $max = 300));
+                $sortie->setNombrePlace($faker->numberBetween($min = 5, $max = 300));
+                $sortie->setDescription($faker->catchPhrase());
+                $sortie->setIsDeleted(false);
+                $sortie->setIsPublished($faker->boolean());
+                $manager->persist($sortie);
+            }
         }
 
         $manager->flush();

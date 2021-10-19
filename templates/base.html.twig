@@ -65,6 +65,9 @@
                         <a href="{{ path('app_register') }}">
                             <i class="fas fa-user fa-2x"></i>
                         </a>
+                        <a  class="btn btn-link px-3 me-2">
+                            Mon profil
+                        </a>
                     </div>
                 </div>
                 <!-- Collapsible wrapper -->
@@ -72,7 +75,7 @@
             <!-- Container wrapper -->
         </nav>
         <!-- Navbar -->
-        <title>{% block title %}Homepage!{% endblock %}</title>
+        <title>{% block title %}{% endblock %}</title>
         {# Run `composer require symfony/webpack-encore-bundle`
            and uncomment the following Encore helpers to start using Symfony UX #}
         {% block stylesheets %}

@@ -74,6 +74,16 @@ class Sortie
      */
     private $motifAnnulation;
 
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $isFinished;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="listSorties")
+     */
+    private $Organisateur;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -229,5 +239,39 @@ class Sortie
         $this->motifAnnulation = $motifAnnulation;
 
         return $this;
+    }
+
+    public function getIsFinished(): ?\DateTimeInterface
+    {
+        return $this->isFinished;
+    }
+
+    public function setIsFinished(\DateTimeInterface $isFinished): self
+    {
+        $this->isFinished = $isFinished;
+
+        return $this;
+    }
+
+    public function getOrganisateur(): ?User
+    {
+        return $this->Organisateur;
+    }
+
+    public function setOrganisateur(?User $Organisateur): self
+    {
+        $this->Organisateur = $Organisateur;
+
+        return $this;
+    }
+
+    public function getParticipation(?User $mainUser) {
+        $values = 0;
+        foreach ($this->users as $user) {
+            if ($user->getId() == $mainUser->getId()) {
+                $values = 1;
+            }
+        }
+        return $values;
     }
 }

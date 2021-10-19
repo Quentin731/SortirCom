@@ -57,7 +57,7 @@ class AppFixtures extends Fixture
         }
 
         for ($i = 0; $i < 100; $i++) {
-            $dateLimite = $faker->dateTime();
+            $dateLimite = $faker->date();
             $dateSortie = $faker->dateTime();
             if ($dateSortie < $dateLimite){
                 $sortie = new Sortie();

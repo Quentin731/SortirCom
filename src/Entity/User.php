@@ -242,4 +242,34 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection|Sortie[]
+     */
+    public function getListSorties(): Collection
+    {
+        return $this->listSorties;
+    }
+
+    public function addListSorty(Sortie $listSorty): self
+    {
+        if (!$this->listSorties->contains($listSorty)) {
+            $this->listSorties[] = $listSorty;
+            $listSorty->setOrganisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeListSorty(Sortie $listSorty): self
+    {
+        if ($this->listSorties->removeElement($listSorty)) {
+            // set the owning side to null (unless already changed)
+            if ($listSorty->getOrganisateur() === $this) {
+                $listSorty->setOrganisateur(null);
+            }
+        }
+
+        return $this;
+    }
 }

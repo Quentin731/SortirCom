@@ -78,7 +78,7 @@ class Sortie
     /**
      * @ORM\Column(type="smallint", nullable=true)
      */
-    private $state;
+    private $state = 1;
 
     public function __construct()
     {

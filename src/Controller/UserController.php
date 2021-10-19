@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
 use App\Form\RegistrationFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -10,29 +9,41 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-class RegistrationController extends AbstractController
+class UserController extends AbstractController
 {
     /**
-     * @Route("/register", name="app_register")
-     * @param Request $request
-     * @param UserPasswordHasherInterface $userPasswordHasherInterface
-     * @return Response
+     * @Route("/user", name="user")
      */
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasherInterface): Response
+    public function index(): Response
     {
-        $user = new User();
+        $user = $this->getUser();
+        if(is_null($user)){
+            return $this->redirectToRoute('home');
+        }
+        return $this->render('user/index.html.twig', [
+            'user' => $user,
+        ]);
+    }
+
+    /**
+     * @Route("/user/modification", name="app_edit_register")
+     */
+    public function modification(Request $request, UserPasswordHasherInterface $userPasswordHasherInterface): Response
+    {
+        $user = $this->getUser();
+        if(is_null($user)){
+            return $this->redirectToRoute('home');
+        }
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
             $user->setPassword(
-            $userPasswordHasherInterface->hashPassword(
+                $userPasswordHasherInterface->hashPassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 )
             );
-
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
@@ -41,7 +52,7 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-        return $this->render('registration/register.html.twig', [
+        return $this->render('registration/edit.register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }

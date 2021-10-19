@@ -3,11 +3,12 @@
 {% block title %}Hello CreateSortieController!{% endblock %}
 
 {% block javascripts %}
-    {{ parent() }}
-    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
     <script>
-        jQuery(document).ready(function() {
-            $('.js-datepicker').datepicker();
+        $(document).ready(function() {
+            // you may need to change this code if you are not using Bootstrap Datepicker
+            $('.js-datepicker').datepicker({
+                format: 'yyyy-mm-dd'
+            });
         });
     </script>
 {% endblock %}
@@ -25,14 +26,12 @@
                 {{ form_row(createSortie.nombrePlace) }}
                 {{ form_row(createSortie.duree) }}
                 {{ form_row(createSortie.description) }}
+                <button type="submit" class="btn btn-block btn-primary">Enregistrer</button>
             </div>
             <div class="col-6">
                 {{ form_row(createSortie.lieu) }}
-            </div>
-            <div class="row col-3" style="display:inline">
-                <button type="submit" class="btn btn-block btn-primary">Enregistrer</button>
-                <button type="submit" class="btn btn-block btn-primary">Publier la sortie</button>
-                <button type="submit" class="btn btn-block btn-primary">Annuler</button>
+                <button type="submit" class="btn btn-block btn-primary">Publier</button>
+
             </div>
         </div>
         {{ form_end(createSortie) }}

@@ -57,9 +57,11 @@ class AppFixtures extends Fixture
         }
 
         for ($i = 0; $i < 100; $i++) {
-            $dateLimite = $faker->dateTime();
+            $dateLimite = $faker->dateTime('now');
             $dateSortie = $faker->dateTime();
-            if ($dateSortie < $dateLimite){
+            $dateEnd = $faker->dateTimeInInterval($dateLimite,'+ 20 days');
+            if ($dateSortie > $dateLimite ){
+
                 $dateLimite = date_create($dateLimite->format('Y-m-d'));
 
                 $sortie = new Sortie();
@@ -67,11 +69,12 @@ class AppFixtures extends Fixture
                 $sortie->setNom($faker->catchPhrase());
                 $sortie->setDateLimite($dateLimite);
                 $sortie->setDateSortie($dateSortie);
-                $sortie->setDuree($faker->numberBetween($min = 15, $max = 300));
-                $sortie->setNombrePlace($faker->numberBetween($min = 5, $max = 300));
+                $sortie->setDuree($faker->numberBetween(15, 300));
+                $sortie->setNombrePlace($faker->numberBetween(5, 300));
                 $sortie->setDescription($faker->catchPhrase());
-                $sortie->setIsDeleted(false);
-                $sortie->setIsPublished($faker->boolean());
+                $sortie->setState($faker->numberBetween(1, 3));
+                $sortie->setOrganisateur($faker->randomElement($users));
+                $sortie->setEndDate($dateEnd);
                 $manager->persist($sortie);
             }
         }

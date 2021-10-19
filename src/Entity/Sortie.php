@@ -70,14 +70,15 @@ class Sortie
     private $endDate;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="listSorties")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="listSorties", cascade={"persist"})
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
-    private $Organisateur;
+    private $organisateur;
 
     /**
      * @ORM\Column(type="smallint", nullable=true)
      */
-    private $state;
+    private $state = 1;
 
     public function __construct()
     {
@@ -226,12 +227,12 @@ class Sortie
 
     public function getOrganisateur(): ?User
     {
-        return $this->Organisateur;
+        return $this->organisateur;
     }
 
-    public function setOrganisateur(?User $Organisateur): self
+    public function setOrganisateur(?User $organisateur): self
     {
-        $this->Organisateur = $Organisateur;
+        $this->organisateur = $organisateur;
 
         return $this;
     }
@@ -252,10 +253,10 @@ class Sortie
 
     public function getEtatToString(){
         $dateNow= date("Y-m-d H:i:s");
-        if($this->isDeleted){
+        if($this->state==1){
             return "Annulée";
         }
-        if($this->isPublished){
+        if($this->state==2){
             if($this->dateLimite<$dateNow && $this->getSizeOfUsers()==$this->nombrePlace){
                 return "Ouvert";
             }
@@ -267,7 +268,7 @@ class Sortie
             return "En création";
         }
 
-}
+    }
 
     public function getState(): ?int
     {

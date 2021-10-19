@@ -65,14 +65,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $sorties;
 
+
     /**
      * @ORM\ManyToOne(targetEntity=Ville::class, inversedBy="users")
      */
     private $ville;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="user", cascade={"remove"})
+     */
+    private $sortie;
+
     public function __construct()
     {
         $this->sorties = new ArrayCollection();
+        $this->sortie = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -267,6 +274,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($listSorty->getOrganisateur() === $this) {
                 $listSorty->setOrganisateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Sortie[]
+     */
+    public function getSortie(): Collection
+    {
+        return $this->sortie;
+    }
+
+    public function addSortie(Sortie $sortie): self
+    {
+        if (!$this->sortie->contains($sortie)) {
+            $this->sortie[] = $sortie;
+            $sortie->setN($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSortie(Sortie $sortie): self
+    {
+        if ($this->sortie->removeElement($sortie)) {
+            // set the owning side to null (unless already changed)
+            if ($sortie->getN() === $this) {
+                $sortie->setN(null);
             }
         }
 

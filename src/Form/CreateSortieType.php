@@ -21,12 +21,14 @@ class CreateSortieType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class, ['label' => 'Nom de la sortie:'])
-            ->add('dateSortie', DateTimeType::class, ['label' => 'Date et heure de la sortie:',
-                'html5' => false,
-                'attr' => ['class' => 'js-datepicker']])
-            ->add('dateLimite', DateType::class, ['label' => 'Date limite d\'inscription:',
-                'html5' => false,
-                'attr' => ['class' => 'js-datepicker']])
+            ->add('dateSortie', DateTimeType::class, [
+                'label' => 'Date et heure de la sortie:',
+                'widget' => 'single_text',
+                ])
+            ->add('dateLimite', DateType::class, [
+                'label' => 'Date limite d\'inscription:',
+                'widget' => 'single_text',
+                ])
             ->add('nombrePlace', IntegerType::class, ['label' => 'Nombre de places:'])
             ->add('duree', IntegerType::class, ['label' => 'Durée (en minutes):'])
             ->add('description', TextType::class, ['label' => 'Description et infos:'])

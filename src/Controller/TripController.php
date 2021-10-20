@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Sortie;
+use App\Entity\Trip;
 use App\Form\CreateSortieType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class SortieController extends AbstractController
+class TripController extends AbstractController
 {
 
     private $entityManager;
@@ -28,7 +28,7 @@ class SortieController extends AbstractController
      */
     public function index(Request $request): Response
     {
-        $sortie = new Sortie();
+        $sortie = new Trip();
         $form = $this->createForm(CreateSortieType::class, $sortie);
         $form->handleRequest($request);
 
@@ -48,7 +48,7 @@ class SortieController extends AbstractController
      */
     public function show($id) : Response
     {
-        $sortie = $this->entityManager->getRepository(Sortie::class)->find($id);
+        $sortie = $this->entityManager->getRepository(Trip::class)->find($id);
 
         return $this->render('sortie/show-index.html.twig', [
             'sortie' => $sortie

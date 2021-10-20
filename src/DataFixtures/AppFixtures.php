@@ -2,10 +2,10 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Lieu;
-use App\Entity\Sortie;
+use App\Entity\Place;
+use App\Entity\Trip;
 use App\Entity\User;
-use App\Entity\Ville;
+use App\Entity\City;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
@@ -20,9 +20,9 @@ class AppFixtures extends Fixture
         //ville
         $villes = [];
         for ($i = 0; $i < 100; $i++) {
-            $ville = new Ville();
-            $ville->setLibelle($faker->city());
-            $ville->setCodePostal($faker->postcode());
+            $ville = new City();
+            $ville->setCityName($faker->city());
+            $ville->setPostalCode($faker->postcode());
             $manager->persist($ville);
             $villes[] = $ville;
         }
@@ -30,11 +30,11 @@ class AppFixtures extends Fixture
         //lieux
         $lieux = [];
         for ($i = 0; $i < 100; $i++) {
-            $lieu = new Lieu();
-            $lieu->setNom($faker->streetName());
+            $lieu = new Place();
+            $lieu->setPlaceName($faker->streetName());
             $lieu->setAdresse($faker->address());
-            $lieu->setPays($faker->country());
-            $lieu->setVille($faker->randomElement($villes));
+            $lieu->setCountry($faker->country());
+            $lieu->setCity($faker->randomElement($villes));
             $manager->persist($lieu);
             $lieux[] = $lieu;
         }
@@ -47,11 +47,11 @@ class AppFixtures extends Fixture
             $password = $faker->password();
 
             $user->setPassword($password);
-            $user->setName($faker->lastName());
+            $user->setLastname($faker->lastName());
             $user->setFirstname($faker->firstName());
             $user->setEmail($faker->email());
             $user->setPhoneNumber($faker->phoneNumber());
-            $user->setVille($faker->randomElement($villes));
+            $user->setCity($faker->randomElement($villes));
             $manager->persist($user);
             $users[] = $user;
         }
@@ -64,16 +64,16 @@ class AppFixtures extends Fixture
 
                 $dateLimite = date_create($dateLimite->format('Y-m-d'));
 
-                $sortie = new Sortie();
-                $sortie->setLieu($faker->randomElement($lieux));
-                $sortie->setNom($faker->catchPhrase());
-                $sortie->setDateLimite($dateLimite);
-                $sortie->setDateSortie($dateSortie);
-                $sortie->setDuree($faker->numberBetween(15, 300));
-                $sortie->setNombrePlace($faker->numberBetween(5, 300));
+                $sortie = new Trip();
+                $sortie->setPlace($faker->randomElement($lieux));
+                $sortie->setTripName($faker->catchPhrase());
+                $sortie->setDeadlineRegistrationDate($dateLimite);
+                $sortie->setTripStartDate($dateSortie);
+                $sortie->setDuration($faker->numberBetween(15, 300));
+                $sortie->setCapacity($faker->numberBetween(5, 300));
                 $sortie->setDescription($faker->catchPhrase());
                 $sortie->setState($faker->numberBetween(1, 3));
-                $sortie->setOrganisateur($faker->randomElement($users));
+                $sortie->setOrganizer($faker->randomElement($users));
                 $sortie->setEndDate($dateEnd);
                 $manager->persist($sortie);
             }

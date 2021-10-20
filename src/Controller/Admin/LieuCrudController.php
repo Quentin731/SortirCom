@@ -2,14 +2,14 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Lieu;
+use App\Entity\Place;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class LieuCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Lieu::class;
+        return Place::class;
     }
 
     /*

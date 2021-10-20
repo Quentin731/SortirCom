@@ -12,7 +12,7 @@
                                 <p class="card-text bold">Nom de la sortie :</p>
                             </div>
                             <div class="col-6">
-                                <p>{{ sortie.nom }}</p>
+                                <p>{{ sortie.tripName }}</p>
                             </div>
                         </div>
                         <div class="row">
@@ -20,7 +20,7 @@
                                 <p class="card-text">Date et heure de la sortie :</p>
                             </div>
                             <div class="col-6">
-                                <p>{{ sortie.dateSortie }}</p>
+                                <p>{{ sortie.tripStartDate|date("m/d/Y")  }}</p>
                             </div>
                         </div>
                         <div class="row">
@@ -28,7 +28,7 @@
                                 <p class="card-text">Date limite d'inscription :</p>
                             </div>
                             <div class="col-6">
-                                <p>{{ sortie.dateLimite }}</p>
+                                <p>{{ sortie.deadlineRegistrationDate |date("m/d/Y") }}</p>
                             </div>
                         </div>
                         <div class="row">
@@ -36,7 +36,7 @@
                                 <p class="card-text">Nombre de places :</p>
                             </div>
                             <div class="col-6">
-                                <p>{{ sortie.nombrePlace }}</p>
+                                <p>{{ sortie.capacity }}</p>
                             </div>
                         </div>
                         <div class="row">
@@ -44,7 +44,7 @@
                                 <p class="card-text">Durée (en minutes) :</p>
                             </div>
                             <div class="col-6">
-                                <p>{{ sortie.duree }}</p>
+                                <p>{{ sortie.duration }}</p>
                             </div>
                         </div>
                         <div class="row">
@@ -68,7 +68,7 @@
                                 <p class="card-text">Lieu :</p>
                             </div>
                             <div class="col-6">
-                                <p>{{ sortie.lieu }}</p>
+                                <p>{{ sortie.place.id }}</p>
                             </div>
                         </div>
                         <div class="row">

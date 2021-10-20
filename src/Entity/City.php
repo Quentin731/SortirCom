@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\VilleRepository;
+use App\Repository\CityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=VilleRepository::class)
+ * @ORM\Entity(repositoryClass=CityRepository::class)
  */
-class Ville
+class City
 {
     /**
      * @ORM\Id
@@ -22,26 +22,26 @@ class Ville
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $libelle;
+    private $cityName;
 
     /**
      * @ORM\Column(type="string", length=7)
      */
-    private $code_postal;
+    private $postalCode;
 
     /**
-     * @ORM\OneToMany(targetEntity=Lieu::class, mappedBy="ville")
+     * @ORM\OneToMany(targetEntity=Place::class, mappedBy="city")
      */
-    private $lieux;
+    private $places;
 
     /**
-     * @ORM\OneToMany(targetEntity=User::class, mappedBy="ville")
+     * @ORM\OneToMany(targetEntity=User::class, mappedBy="city")
      */
     private $users;
 
     public function __construct()
     {
-        $this->lieux = new ArrayCollection();
+        $this->places = new ArrayCollection();
         $this->users = new ArrayCollection();
     }
 
@@ -50,54 +50,54 @@ class Ville
         return $this->id;
     }
 
-    public function getLibelle(): ?string
+    public function getCityName(): ?string
     {
-        return $this->libelle;
+        return $this->cityName;
     }
 
-    public function setLibelle(string $libelle): self
+    public function setCityName(string $cityName): self
     {
-        $this->libelle = $libelle;
+        $this->cityName = $cityName;
 
         return $this;
     }
 
-    public function getCodePostal(): ?string
+    public function getPostalCode(): ?string
     {
-        return $this->code_postal;
+        return $this->postalCode;
     }
 
-    public function setCodePostal(string $code_postal): self
+    public function setPostalCode(string $postalCode): self
     {
-        $this->code_postal = $code_postal;
+        $this->postalCode = $postalCode;
 
         return $this;
     }
 
     /**
-     * @return Collection|Lieu[]
+     * @return Collection|Place[]
      */
-    public function getLieux(): Collection
+    public function getPlaces(): Collection
     {
-        return $this->lieux;
+        return $this->places;
     }
 
-    public function addLieu(Lieu $lieu): self
+    public function addPlace(Place $place): self
     {
-        if (!$this->lieux->contains($lieu)) {
-            $this->lieux[] = $lieu;
-            $lieu->setVille($this);
+        if (!$this->places->contains($place)) {
+            $this->places[] = $place;
+            $place->setCity($this);
         }
 
         return $this;
     }
 
-    public function removeLieu(Lieu $lieu): self
+    public function removePlace(Place $place): self
     {
-        if ($this->lieux->removeElement($lieu)) {
+        if ($this->places->removeElement($place)) {
             // set the owning side to null (unless already changed)
-            if ($lieu->getVille() === $this) {
-                $lieu->setVille(null);
+            if ($place->getCity() === $this) {
+                $place->setCity(null);
             }
         }
 
@@ -116,7 +116,7 @@ class Ville
     {
         if (!$this->users->contains($user)) {
             $this->users[] = $user;
-            $user->setVille($this);
+            $user->setCity($this);
         }
 
         return $this;
@@ -126,8 +126,8 @@ class Ville
     {
         if ($this->users->removeElement($user)) {
             // set the owning side to null (unless already changed)
-            if ($user->getVille() === $this) {
-                $user->setVille(null);
+            if ($user->getCity() === $this) {
+                $user->setCity(null);
             }
         }
 

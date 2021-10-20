@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\SortieRepository;
+use App\Repository\TripRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=SortieRepository::class)
+ * @ORM\Entity(repositoryClass=TripRepository::class)
  */
-class Sortie
+class Trip
 {
     /**
      * @ORM\Id
@@ -22,27 +22,27 @@ class Sortie
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $nom;
+    private $tripName;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $dateSortie;
+    private $tripStartDate;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $duree;
+    private $duration;
 
     /**
      * @ORM\Column(type="date")
      */
-    private $dateLimite;
+    private $deadlineRegistrationDate;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $nombrePlace;
+    private $capacity;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -50,9 +50,9 @@ class Sortie
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Lieu::class, inversedBy="sorties")
+     * @ORM\ManyToOne(targetEntity=Place::class, inversedBy="sorties")
      */
-    private $lieu;
+    private $place;
 
     /**
      * @ORM\ManyToMany(targetEntity=User::class, mappedBy="sorties")
@@ -62,7 +62,7 @@ class Sortie
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $motifAnnulation;
+    private $cencelationReason;
 
     /**
      * @ORM\Column(type="date", nullable=true)
@@ -73,7 +73,7 @@ class Sortie
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="listSorties", cascade={"persist"})
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
-    private $organisateur;
+    private $organizer;
 
     /**
      * @ORM\Column(type="smallint", nullable=true)
@@ -90,62 +90,62 @@ class Sortie
         return $this->id;
     }
 
-    public function getNom(): ?string
+    public function getTripName(): ?string
     {
-        return $this->nom;
+        return $this->tripName;
     }
 
-    public function setNom(string $nom): self
+    public function setTripName(string $tripName): self
     {
-        $this->nom = $nom;
+        $this->tripName = $tripName;
 
         return $this;
     }
 
-    public function getDateSortie(): ?\DateTimeInterface
+    public function getTripStartDate(): ?\DateTimeInterface
     {
-        return $this->dateSortie;
+        return $this->tripStartDate;
     }
 
-    public function setDateSortie(\DateTimeInterface $dateSortie): self
+    public function setTripStartDate(\DateTimeInterface $tripStartDate): self
     {
-        $this->dateSortie = $dateSortie;
+        $this->tripStartDate = $tripStartDate;
 
         return $this;
     }
 
-    public function getDuree(): ?int
+    public function getDuration(): ?int
     {
-        return $this->duree;
+        return $this->duration;
     }
 
-    public function setDuree(int $duree): self
+    public function setDuration(int $duration): self
     {
-        $this->duree = $duree;
+        $this->duration = $duration;
 
         return $this;
     }
 
-    public function getDateLimite(): ?\DateTimeInterface
+    public function getDeadlineRegistrationDate(): ?\DateTimeInterface
     {
-        return $this->dateLimite;
+        return $this->deadlineRegistrationDate;
     }
 
-    public function setDateLimite(\DateTimeInterface $dateLimite): self
+    public function setDeadlineRegistrationDate(\DateTimeInterface $deadlineRegistrationDate): self
     {
-        $this->dateLimite = $dateLimite;
+        $this->deadlineRegistrationDate = $deadlineRegistrationDate;
 
         return $this;
     }
 
-    public function getNombrePlace(): ?int
+    public function getCapacity(): ?int
     {
-        return $this->nombrePlace;
+        return $this->capacity;
     }
 
-    public function setNombrePlace(int $nombrePlace): self
+    public function setCapacity(int $capacity): self
     {
-        $this->nombrePlace = $nombrePlace;
+        $this->capacity = $capacity;
 
         return $this;
     }
@@ -162,14 +162,14 @@ class Sortie
         return $this;
     }
 
-    public function getLieu(): ?Lieu
+    public function getPlace(): ?Place
     {
-        return $this->lieu;
+        return $this->place;
     }
 
-    public function setLieu(?Lieu $lieu): self
+    public function setPlace(?Place $place): self
     {
-        $this->lieu = $lieu;
+        $this->place = $place;
 
         return $this;
     }
@@ -201,14 +201,14 @@ class Sortie
         return $this;
     }
 
-    public function getMotifAnnulation(): ?string
+    public function getCencelationReason(): ?string
     {
-        return $this->motifAnnulation;
+        return $this->cencelationReason;
     }
 
-    public function setMotifAnnulation(string $motifAnnulation): self
+    public function setCencelationReason(string $cencelationReason): self
     {
-        $this->motifAnnulation = $motifAnnulation;
+        $this->cencelationReason = $cencelationReason;
 
         return $this;
     }
@@ -225,14 +225,14 @@ class Sortie
         return $this;
     }
 
-    public function getOrganisateur(): ?User
+    public function getOrganizer(): ?User
     {
-        return $this->organisateur;
+        return $this->organizer;
     }
 
-    public function setOrganisateur(?User $organisateur): self
+    public function setOrganizer(?User $organizer): self
     {
-        $this->organisateur = $organisateur;
+        $this->organizer = $organizer;
 
         return $this;
     }
@@ -257,7 +257,7 @@ class Sortie
             return "Annulée";
         }
         if($this->state==2){
-            if($this->dateLimite<$dateNow && $this->getSizeOfUsers()==$this->nombrePlace){
+            if($this->deadlineRegistrationDate<$dateNow && $this->getSizeOfUsers()==$this->capacity){
                 return "Ouvert";
             }
             else{

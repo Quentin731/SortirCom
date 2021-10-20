@@ -43,7 +43,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private $lastname;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -61,18 +61,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $phoneNumber;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Sortie::class, inversedBy="users")
+     * @ORM\ManyToMany(targetEntity=Trip::class, inversedBy="users")
      */
     private $sorties;
 
 
     /**
-     * @ORM\ManyToOne(targetEntity=Ville::class, inversedBy="users")
+     * @ORM\ManyToOne(targetEntity=City::class, inversedBy="users")
      */
-    private $ville;
+    private $city;
 
     /**
-     * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="user", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity=Trip::class, mappedBy="user", cascade={"remove"})
      */
     private $sortie;
 
@@ -166,14 +166,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function getName(): ?string
+    public function getLastname(): ?string
     {
-        return $this->name;
+        return $this->lastname;
     }
 
-    public function setName(string $name): self
+    public function setLastname(string $lastname): self
     {
-        $this->name = $name;
+        $this->lastname = $lastname;
 
         return $this;
     }
@@ -215,97 +215,37 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection|Sortie[]
+     * @return Collection|Trip[]
      */
-    public function getSorties(): Collection
+    public function getTrips(): Collection
     {
         return $this->sorties;
     }
 
-    public function addSorty(Sortie $sorty): self
+    public function addTrip(Trip $trip): self
     {
-        if (!$this->sorties->contains($sorty)) {
-            $this->sorties[] = $sorty;
+        if (!$this->sorties->contains($trip)) {
+            $this->sorties[] = $trip;
         }
 
         return $this;
     }
 
-    public function removeSorty(Sortie $sorty): self
+    public function removeTrip(Trip $trip): self
     {
-        $this->sorties->removeElement($sorty);
+        $this->sorties->removeElement($trip);
 
         return $this;
     }
 
-    public function getVille(): ?Ville
+    public function getCity(): ?City
     {
-        return $this->ville;
+        return $this->city;
     }
 
-    public function setVille(?Ville $ville): self
+    public function setCity(?City $city): self
     {
-        $this->ville = $ville;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Sortie[]
-     */
-    public function getListSorties(): Collection
-    {
-        return $this->listSorties;
-    }
-
-    public function addListSorty(Sortie $listSorty): self
-    {
-        if (!$this->listSorties->contains($listSorty)) {
-            $this->listSorties[] = $listSorty;
-            $listSorty->setOrganisateur($this);
-        }
-
-        return $this;
-    }
-
-    public function removeListSorty(Sortie $listSorty): self
-    {
-        if ($this->listSorties->removeElement($listSorty)) {
-            // set the owning side to null (unless already changed)
-            if ($listSorty->getOrganisateur() === $this) {
-                $listSorty->setOrganisateur(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Sortie[]
-     */
-    public function getSortie(): Collection
-    {
-        return $this->sortie;
-    }
-
-    public function addSortie(Sortie $sortie): self
-    {
-        if (!$this->sortie->contains($sortie)) {
-            $this->sortie[] = $sortie;
-            $sortie->setN($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSortie(Sortie $sortie): self
-    {
-        if ($this->sortie->removeElement($sortie)) {
-            // set the owning side to null (unless already changed)
-            if ($sortie->getN() === $this) {
-                $sortie->setN(null);
-            }
-        }
+        $this->city = $city;
 
         return $this;
     }

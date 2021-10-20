@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Sortie;
+use App\Entity\Trip;
 use App\Form\FilterType;
 use App\Form\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -34,7 +34,7 @@ class HomeController extends AbstractController
     public function index(Request $request,PaginatorInterface $paginator): Response
     {
 
-        $sorties = $this->entityManager->getRepository(Sortie::class)->findAll();
+        $sorties = $this->entityManager->getRepository(Trip::class)->findAll();
         $paginateSorties= $paginator->paginate(
             $sorties,
             $request->query->getInt('page', 1),

@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\User;
-use App\Entity\Ville;
+use App\Entity\City;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -24,7 +24,7 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('username', TextType::class, ['label' => 'Pseudo'])
-            ->add('name', TextType::class, ['label' => 'Nom'])
+            ->add('lastname', TextType::class, ['label' => 'Nom'])
             ->add('firstname', TextType::class, ['label' => 'Prénom'])
             ->add('email', EmailType::class, ['label' => 'Email'])
             ->add('phoneNumber', TelType::class, ['label' => 'Numero de téléphone'])
@@ -48,10 +48,10 @@ class RegistrationFormType extends AbstractType
                     ],
                 'second_options' => ['label' => 'Confirmer votre mot de passe',
                     ]
-            ])->add('ville', EntityType::class, [
-                'class' => Ville::class,
-                'choice_label' => 'libelle',
-                'label' => 'Ville de rattachement',
+            ])->add('city', EntityType::class, [
+                'class' => City::class,
+                'choice_label' => 'cityName',
+                'label' => 'City de rattachement',
             ]);
     }
 

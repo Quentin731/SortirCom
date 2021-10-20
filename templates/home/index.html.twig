@@ -28,17 +28,17 @@
                     {% for sortie in listeSorties %}
                         <tr>
 
-                            <td>{{ sortie.nom }}</td>
-                            <td>{{ sortie.dateSortie|date("m/d/Y") }}</td>
-                            <td>{{ sortie.getEndDate }}</td>
-                            <td>{{ sortie.getSizeOfUsers() }}/{{ sortie.nombrePlace }}</td>
+                            <td>{{ sortie.tripName }}</td>
+                            <td>{{ sortie.tripStartDate|date("m/d/Y") }}</td>
+                            <td>{{ sortie.endDate|date("m/d/Y") }}</td>
+                            <td>{{ sortie.getSizeOfUsers() }}/{{ sortie.capacity }}</td>
                             <td>{{ sortie.getEtatToString() }}</td>
                             <td>
                                 {% if sortie.getParticipation(app.user) == 1 %}X{% endif %}
                             </td>
-                            <td>{{ sortie.organisateur.name }}</td>
+                            <td>{{ sortie.organizer.lastname }}</td>
                             <td>
-                                {% if app.user ==  sortie.organisateur %}
+                                {% if app.user ==  sortie.organizer %}
                                     <a href="#" class="btn btn-outline-primary btn-floating"><i class="fas fa-edit"></i></a>
                                     <a href="#" class="btn btn-outline-danger btn-floating"><i class="fas fa-trash"></i></a>
                                 {% endif %}

@@ -9,36 +9,46 @@ use App\Entity\City;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
+    /**
+     * @var UserPasswordHasherInterface
+     */
+    private $userPasswordHasherInterface;
+
+    public function __construct(UserPasswordHasherInterface $userPasswordHasherInterface)
+    {
+        $this->userPasswordHasherInterface = $userPasswordHasherInterface;
+    }
 
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create('fr_FR');
 
-        //ville
-        $villes = [];
+        //city
+        $citys = [];
         for ($i = 0; $i < 100; $i++) {
-            $ville = new City();
-            $ville->setCityName($faker->city());
-            $ville->setPostalCode($faker->postcode());
-            $manager->persist($ville);
-            $villes[] = $ville;
+            $city = new City();
+            $city->setCityName($faker->city());
+            $city->setPostalCode($faker->postcode());
+            $manager->persist($city);
+            $citys[] = $city;
         }
 
-        //lieux
-        $lieux = [];
+        //places
+        $places = [];
         for ($i = 0; $i < 100; $i++) {
-            $lieu = new Place();
-            $lieu->setPlaceName($faker->streetName());
-            $lieu->setAddress($faker->address());
-            $lieu->setCountry($faker->country());
-            $lieu->setCity($faker->randomElement($villes));
-            $manager->persist($lieu);
-            $lieux[] = $lieu;
+            $place = new Place();
+            $place->setPlaceName($faker->streetName());
+            $place->setAddress($faker->address());
+            $place->setCountry($faker->country());
+            $place->setCity($faker->randomElement($citys));
+            $manager->persist($place);
+            $places[] = $place;
         }
-
+        //-----------USER----------------
         $users = [];
         for ($i = 0; $i < 100; $i++) {
             $user = new User();
@@ -51,33 +61,88 @@ class AppFixtures extends Fixture
             $user->setFirstname($faker->firstName());
             $user->setEmail($faker->email());
             $user->setPhoneNumber($faker->phoneNumber());
-            $user->setCity($faker->randomElement($villes));
+            $user->setCity($faker->randomElement($citys));
+            $user->setRoles($faker->randomElement([["ROLE_USER"],['ROLE_ORGA']]));
             $manager->persist($user);
             $users[] = $user;
         }
 
-        for ($i = 0; $i < 100; $i++) {
-            $dateLimite = $faker->dateTime('now');
-            $dateSortie = $faker->dateTime();
-            $dateEnd = $faker->dateTimeInInterval($dateLimite,'+ 20 days');
-            if ($dateSortie > $dateLimite ){
 
-                $dateLimite = date_create($dateLimite->format('Y-m-d'));
+        $user = new User();
+        $user->setUsername('user');
+        $user->setPassword($this->userPasswordHasherInterface->hashPassword($user, 'root42'));
+        $user->setLastname('userLastName');
+        $user->setFirstname('userFirstName');
+        $user->setEmail('useremail@gmail.com');
+        $user->setPhoneNumber('0632138578');
+        $user->setCity($faker->randomElement($citys));
+        $user->setRoles(["ROLE_USER"]);
+        $manager->persist($user);
+        $users[] = $user;
 
-                $sortie = new Trip();
-                $sortie->setPlace($faker->randomElement($lieux));
-                $sortie->setTripName($faker->catchPhrase());
-                $sortie->setDeadlineRegistrationDate($dateLimite);
-                $sortie->setTripStartDate($dateSortie);
-                $sortie->setDuration($faker->numberBetween(15, 300));
-                $sortie->setCapacity($faker->numberBetween(5, 300));
-                $sortie->setDescription($faker->catchPhrase());
-                $sortie->setState($faker->numberBetween(1, 3));
-                $sortie->setOrganizer($faker->randomElement($users));
-                $sortie->setEndDate($dateEnd);
-                $manager->persist($sortie);
+        $orga = new User();
+        $orga->setUsername('orga');
+        $orga->setPassword($this->userPasswordHasherInterface->hashPassword($orga, 'root42'));
+        $orga->setLastname('orgaLastName');
+        $orga->setFirstname('orgaFirstName');
+        $orga->setEmail('orgaemail@gmail.com');
+        $orga->setPhoneNumber('0632138578');
+        $orga->setCity($faker->randomElement($citys));
+        $orga->setRoles(["ROLE_ORGA"]);
+        $manager->persist($orga);
+        $users[] = $orga;
+
+        $admin = new User();
+        $admin->setUsername('admin');
+        $admin->setPassword($this->userPasswordHasherInterface->hashPassword($admin, 'root42'));
+        $admin->setLastname('adminLastName');
+        $admin->setFirstname('adminFirstName');
+        $admin->setEmail('adminemail@gmail.com');
+        $admin->setPhoneNumber('0632138578');
+        $admin->setCity($faker->randomElement($citys));
+        $admin->setRoles(["ROLE_ADMIN"]);
+        $manager->persist($admin);
+        $users[] = $admin;
+
+
+        //-------------TRIP------------------------
+
+        for ($i = 0; $i < 200; $i++) {
+            $deadlineRegistrationDate = $faker->dateTime('now');
+            $tripStartDate = $faker->dateTime();
+            $dateEnd = $faker->dateTimeInInterval($deadlineRegistrationDate,'+ 20 days');
+            if ($tripStartDate > $deadlineRegistrationDate ){
+
+                $deadlineRegistrationDate = date_create($deadlineRegistrationDate->format('Y-m-d'));
+
+                $trip = new Trip();
+                $trip->setPlace($faker->randomElement($places));
+                $trip->setTripName($faker->catchPhrase());
+                $trip->setDeadlineRegistrationDate($deadlineRegistrationDate);
+                $trip->setTripStartDate($tripStartDate);
+                $trip->setDuration($faker->numberBetween(15, 300));
+                $trip->setCapacity($faker->numberBetween(5, 300));
+                $trip->setDescription($faker->catchPhrase());
+                $trip->setState($faker->numberBetween(1, 3));
+                $trip->setOrganizer($faker->randomElement($users));
+                $trip->addUsers($faker->randomElements($users,$faker->randomDigitNotNull()));
+                $trip->setEndDate($dateEnd);
+                $manager->persist($trip);
             }
         }
+
+        $admin = new User();
+        $admin->setUsername('admintest');
+        $admin->setPassword('root42');
+        $admin->setLastname('adminLastName');
+        $admin->setFirstname('adminFirstName');
+        $admin->setEmail('adminemail@gmail.com');
+        $admin->setPhoneNumber('0632138578');
+        $admin->setCity($faker->randomElement($citys));
+        $admin->setRoles(["ROLE_ADMIN"]);
+        $admin->addTrip($trip);
+        $manager->persist($admin);
+        $users[] = $admin;
 
         $manager->flush();
     }

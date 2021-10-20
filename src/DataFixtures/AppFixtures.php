@@ -32,7 +32,7 @@ class AppFixtures extends Fixture
         for ($i = 0; $i < 100; $i++) {
             $lieu = new Place();
             $lieu->setPlaceName($faker->streetName());
-            $lieu->setAdresse($faker->address());
+            $lieu->setAddress($faker->address());
             $lieu->setCountry($faker->country());
             $lieu->setCity($faker->randomElement($villes));
             $manager->persist($lieu);

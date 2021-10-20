@@ -12,7 +12,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class SortieCrudController extends AbstractCrudController
+class TripCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {

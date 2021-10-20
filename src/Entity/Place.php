@@ -37,7 +37,7 @@ class Place
     /**
      * @ORM\OneToMany(targetEntity=Trip::class, mappedBy="place")
      */
-    private $Trips;
+    private $trips;
 
     /**
      * @ORM\ManyToOne(targetEntity=City::class, inversedBy="places")
@@ -46,7 +46,7 @@ class Place
 
     public function __construct()
     {
-        $this->Trips = new ArrayCollection();
+        $this->trips = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -95,13 +95,13 @@ class Place
      */
     public function getTrips(): Collection
     {
-        return $this->Trips;
+        return $this->trips;
     }
 
     public function addSorty(Trip $sorty): self
     {
-        if (!$this->Trips->contains($sorty)) {
-            $this->Trips[] = $sorty;
+        if (!$this->trips->contains($sorty)) {
+            $this->trips[] = $sorty;
             $sorty->setPlace($this);
         }
 
@@ -110,7 +110,7 @@ class Place
 
     public function removeSorty(Trip $sorty): self
     {
-        if ($this->Trips->removeElement($sorty)) {
+        if ($this->trips->removeElement($sorty)) {
             // set the owning side to null (unless already changed)
             if ($sorty->getPlace() === $this) {
                 $sorty->setPlace(null);

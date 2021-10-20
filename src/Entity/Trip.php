@@ -50,12 +50,12 @@ class Trip
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Place::class, inversedBy="sorties")
+     * @ORM\ManyToOne(targetEntity=Place::class, inversedBy="trips")
      */
     private $place;
 
     /**
-     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="sorties")
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="trips")
      */
     private $users;
 
@@ -70,7 +70,7 @@ class Trip
     private $endDate;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="listSorties", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="listTrips", cascade={"persist"})
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $organizer;
@@ -186,7 +186,15 @@ class Trip
     {
         if (!$this->users->contains($user)) {
             $this->users[] = $user;
-            $user->addSorty($this);
+        }
+
+        return $this;
+    }
+
+    public function addUsers(array $users): self
+    {
+        foreach($users as $user){
+            $this->addUser($user);
         }
 
         return $this;
@@ -194,9 +202,7 @@ class Trip
 
     public function removeUser(User $user): self
     {
-        if ($this->users->removeElement($user)) {
-            $user->removeSorty($this);
-        }
+        $this->users->removeElement($user);
 
         return $this;
     }

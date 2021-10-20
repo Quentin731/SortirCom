@@ -63,7 +63,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\ManyToMany(targetEntity=Trip::class, inversedBy="users")
      */
-    private $sorties;
+    private $trips;
 
 
     /**
@@ -74,12 +74,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\OneToMany(targetEntity=Trip::class, mappedBy="user", cascade={"remove"})
      */
-    private $sortie;
+    private $trip;
 
     public function __construct()
     {
-        $this->sorties = new ArrayCollection();
-        $this->sortie = new ArrayCollection();
+        $this->trip = new ArrayCollection();
+        $this->trips = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -219,13 +219,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getTrips(): Collection
     {
-        return $this->sorties;
+        return $this->trips;
     }
 
     public function addTrip(Trip $trip): self
     {
-        if (!$this->sorties->contains($trip)) {
-            $this->sorties[] = $trip;
+        if (!$this->trips->contains($trip)) {
+            $this->trips[] = $trip;
         }
 
         return $this;
@@ -233,7 +233,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeTrip(Trip $trip): self
     {
-        $this->sorties->removeElement($trip);
+        $this->trips->removeElement($trip);
 
         return $this;
     }

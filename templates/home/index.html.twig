@@ -36,10 +36,19 @@
                             <td>
                                 {% if sortie.getParticipation(app.user) == 1 %}X{% endif %}
                             </td>
-                            <td>{{ sortie.organisateur }}</td>
+                            <td>{{ sortie.organisateur.name }}</td>
                             <td>
-                                <a href="#" class="btn btn-outline-primary btn-floating"><i class="fas fa-edit"></i></a>
-                                <a href="#" class="btn btn-outline-danger btn-floating"><i class="fas fa-trash"></i></a>
+                                {% if app.user ==  sortie.organisateur %}
+                                    <a href="#" class="btn btn-outline-primary btn-floating"><i class="fas fa-edit"></i></a>
+                                    <a href="#" class="btn btn-outline-danger btn-floating"><i class="fas fa-trash"></i></a>
+                                {% endif %}
+                                {% if app.user != null and 'ROLE_USER' in app.user.getroles(TRUE) %}
+                                    <a href="#" class="btn btn-outline-primary btn-floating"><i class="fas fa-check"></i></a>
+                                    <a href="#" class="btn btn-outline-danger btn-floating"><i class="fas fa-cross"></i></a>
+                                {% endif %}
+                                {% if app.user == null  %}
+                                    <a href="#" class="btn btn-outline-primary">Connexion</a>
+                                {% endif %}
                             </td>
                         </tr>
                     {% endfor %}

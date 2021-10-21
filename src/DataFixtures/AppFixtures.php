@@ -48,25 +48,10 @@ class AppFixtures extends Fixture
             $manager->persist($place);
             $places[] = $place;
         }
+
         //-----------USER----------------
+
         $users = [];
-        for ($i = 0; $i < 100; $i++) {
-            $user = new User();
-            $user->setUsername($faker->userName());
-
-            $password = $faker->password();
-
-            $user->setPassword($password);
-            $user->setLastname($faker->lastName());
-            $user->setFirstname($faker->firstName());
-            $user->setEmail($faker->email());
-            $user->setPhoneNumber($faker->phoneNumber());
-            $user->setCity($faker->randomElement($citys));
-            $user->setRoles($faker->randomElement([["ROLE_USER"],['ROLE_ORGA']]));
-            $manager->persist($user);
-            $users[] = $user;
-        }
-
 
         $user = new User();
         $user->setUsername('user');
@@ -104,6 +89,24 @@ class AppFixtures extends Fixture
         $manager->persist($admin);
         $users[] = $admin;
 
+        for ($i = 0; $i < 100; $i++) {
+            $user = new User();
+            $user->setUsername($faker->userName());
+
+            $password = $faker->password();
+
+            $user->setPassword($password);
+            $user->setLastname($faker->lastName());
+            $user->setFirstname($faker->firstName());
+            $user->setEmail($faker->email());
+            $user->setPhoneNumber($faker->phoneNumber());
+            $user->setCity($faker->randomElement($citys));
+            $user->setRoles($faker->randomElement([["ROLE_USER"],['ROLE_ORGA']]));
+            $manager->persist($user);
+            $users[] = $user;
+        }
+
+
 
         //-------------TRIP------------------------
 
@@ -130,20 +133,6 @@ class AppFixtures extends Fixture
                 $manager->persist($trip);
             }
         }
-
-        $admin = new User();
-        $admin->setUsername('admintest');
-        $admin->setPassword('root42');
-        $admin->setLastname('adminLastName');
-        $admin->setFirstname('adminFirstName');
-        $admin->setEmail('adminemail@gmail.com');
-        $admin->setPhoneNumber('0632138578');
-        $admin->setCity($faker->randomElement($citys));
-        $admin->setRoles(["ROLE_ADMIN"]);
-        $admin->addTrip($trip);
-        $manager->persist($admin);
-        $users[] = $admin;
-
         $manager->flush();
     }
 

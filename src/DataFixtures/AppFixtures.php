@@ -121,11 +121,11 @@ class AppFixtures extends Fixture
                 $trip->setDeadlineRegistrationDate($deadlineRegistrationDate);
                 $trip->setTripStartDate($tripStartDate);
                 $trip->setDuration($faker->numberBetween(15, 300));
-                $trip->setCapacity($faker->numberBetween(5, 8));
+                $trip->setCapacity($nbCapacity = $faker->numberBetween(5, 8));
                 $trip->setDescription($faker->catchPhrase());
                 $trip->setState($faker->numberBetween(1, 3));
                 $trip->setOrganizer($faker->randomElement($users));
-                $trip->addUsers($faker->randomElements($users,$faker->randomDigitNotNull()));
+                $trip->addUsers($faker->randomElements($users,$nbCapacity));
                 $trip->setEndDate($dateEnd);
                 $manager->persist($trip);
             }

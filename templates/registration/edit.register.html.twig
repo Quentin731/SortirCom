@@ -10,20 +10,24 @@
             <div class="card">
                 <div class="card-body text-center">
                     <h5 class="card-title">Modifier mon profil</h5>
-                    {{ form_start(registrationForm) }}
-                    {{ form_widget(registrationForm.username) }}
-                    {{ form_row(registrationForm.lastname) }}
-                    {{ form_row(registrationForm.firstname) }}
-                    {{ form_row(registrationForm.email) }}
-                    {{ form_row(registrationForm.phoneNumber) }}
-                    {{ form_row(registrationForm.city) }}
-                    {{ form_row(registrationForm.plainPassword, {
+                    {{ form_start(editUserForm) }}
+                    <div class="my-custom-class-for-errors">
+                        {{ form_errors(editUserForm) }}
+                        {{ form_row(editUserForm.username) }}
+                    </div>
+
+                    {{ form_row(editUserForm.lastname) }}
+                    {{ form_row(editUserForm.firstname) }}
+                    {{ form_row(editUserForm.email) }}
+                    {{ form_row(editUserForm.phoneNumber) }}
+                    {{ form_row(editUserForm.city) }}
+                    {{ form_row(editUserForm.plainPassword, {
                         label: 'Mot de Passe'
                     }) }}
-                    {{ form_row(registrationForm.agreeTerms) }}
+                    {{ form_row(editUserForm.agreeTerms) }}
 
                     <button type="submit" class="btn btn-block btn-primary">Enregistrer</button>
-                    {{ form_end(registrationForm) }}
+                    {{ form_end(editUserForm) }}
                 </div>
             </div>
         </div>

@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Form\RegistrationFormType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,6 +14,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     /**
+     * ProductController constructor.
+     * @param $entityManager
+     */
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+        $errorMessage ="";
+    }
+
+    /**
      * @Route("/user", name="user")
      */
     public function index(): Response
@@ -20,6 +32,18 @@ class UserController extends AbstractController
         if(is_null($user)){
             return $this->redirectToRoute('home');
         }
+        return $this->render('user/index.html.twig', [
+            'user' => $user,
+        ]);
+    }
+
+    /**
+     * @Route("/user/{id}", name="user_show")
+     */
+    public function showUser($id): Response
+    {
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+
         return $this->render('user/index.html.twig', [
             'user' => $user,
         ]);

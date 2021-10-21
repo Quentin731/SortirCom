@@ -54,9 +54,12 @@
                         <div class="col-6">
                             <a href="{{ path("home") }}" class="btn btn-primary btn-block">Retour</a>
                         </div>
-                        <div class="col-6">
-                            <a href="{{ path("app_edit_register") }}" class="btn btn-primary btn-block">Modification</a>
-                        </div>
+                        {% if app.user != null and user == app.user %}
+                            <div class="col-6">
+                                <a href="{{ path("app_edit_register") }}"
+                                   class="btn btn-primary btn-block">Modification</a>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>

@@ -24,7 +24,7 @@ class TripController extends AbstractController
         $this->entityManager = $entityManager;
     }
     /**
-     * @Route("/create_sortie", name="create_sortie")
+     * @Route("/trip/create", name="create_sortie")
      */
     public function index(Request $request): Response
     {
@@ -44,18 +44,12 @@ class TripController extends AbstractController
     }
 
     /**
-     * @Route("/show_sortie/{id}", name="show_sortie")
+     * @Route("/trip/{id}", name="show_sortie")
      */
     public function show($id) : Response
     {
         $sortie = $this->entityManager->getRepository(Trip::class)->find($id);
-        $sortie->addUser($this->getUser());
 
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($sortie);
-        $entityManager->flush();
-        $isPersisted = $entityManager->contains($sortie);
-        echo $isPersisted;
         return $this->render('sortie/show-index.html.twig', [
             'sortie' => $sortie
         ]);
@@ -68,7 +62,7 @@ class TripController extends AbstractController
     {
         $user = $this->getUser();
         $trip = $this->entityManager->getRepository(Trip::class)->find($id);
-        $trip->addUser($user);
+        $error = $trip->addUserWithValidation($user);
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($trip);

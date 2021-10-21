@@ -28,7 +28,7 @@
                     {% for sortie in listeSorties %}
                         <tr>
 
-                            <td>{{ sortie.tripName }}</td>
+                            <td><a href="{{ path('show_sortie',{ 'id': sortie.id }) }}">{{ sortie.tripName }}</a></td>
                             <td>{{ sortie.tripStartDate|date("m/d/Y") }}</td>
                             <td>{{ sortie.endDate|date("m/d/Y") }}</td>
                             <td>{{ sortie.getSizeOfUsers() }}/{{ sortie.capacity }}</td>

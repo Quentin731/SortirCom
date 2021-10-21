@@ -116,7 +116,7 @@
                         <div class="row col-6">
                             <p class="card-text font-weight-bold">Pseudo</p>
                             {% for participant in sortie.users %}
-                                <p>{{ participant.username }}</p>
+                                <p><a href="{{ path('user_show',{ 'id': participant.id }) }}">{{ participant.username }}</a></p>
                             {% endfor %}
                         </div>
                         <div class="row col-6">

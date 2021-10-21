@@ -290,4 +290,25 @@ class Trip
 
         return $this;
     }
+
+    public function addUserWithValidation(User $user){
+        $error=null;
+        $dateNow= date("Y-m-d H:i:s");
+
+        if($this->state==1) {
+            $error = "Impossible, La sortie a été annulée";
+        }elseif ($this->state==3){
+            $error = "Impossible, La sortie a pas encore été publiée";
+        }
+        if($this->endDate() < $dateNow){
+            $error = "Impossible, Les Inscriptions sont terminées";
+        }
+        if($this->capacity==$this->getSizeOfUsers()){
+            $error = "Impossible, La sortie est pleine";
+        }
+        if($error==null){
+            $this->addUser($user);
+        }
+        return $error;
+    }
 }

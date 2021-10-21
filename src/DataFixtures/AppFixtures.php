@@ -111,10 +111,10 @@ class AppFixtures extends Fixture
         //-------------TRIP------------------------
 
         for ($i = 0; $i < 200; $i++) {
-            $deadlineRegistrationDate = $faker->dateTime('now');
-            $tripStartDate = $faker->dateTime();
+            $deadlineRegistrationDate = $faker->dateTimeBetween($startDate = '-5 days', '-5 days';
+            $tripStartDate = $faker->dateTimeBetween('-5 days', '+5 days');
             $dateEnd = $faker->dateTimeInInterval($deadlineRegistrationDate,'+ 20 days');
-            if ($tripStartDate > $deadlineRegistrationDate ){
+            if ($tripStartDate >= $deadlineRegistrationDate ){
 
                 $deadlineRegistrationDate = date_create($deadlineRegistrationDate->format('Y-m-d'));
 

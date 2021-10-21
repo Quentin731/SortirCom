@@ -277,6 +277,13 @@ class Trip
         return $this;
     }
 
+    public function addUsers(array $users): void
+    {
+        foreach($users as $user){
+            $this->addUser($user);
+        }
+    }
+
     public function removeUser(User $user): self
     {
         $this->users->removeElement($user);

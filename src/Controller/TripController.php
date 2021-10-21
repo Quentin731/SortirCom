@@ -84,10 +84,10 @@ class TripController extends AbstractController
     {
         $user = $this->getUser();
         $trip = $this->entityManager->getRepository(Trip::class)->find($id);
-        $user->removeTrip($trip);
+        $trip->removeUser($user);
 
         $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($user);
+        $entityManager->persist($trip);
         $entityManager->flush();
 
         return $this->redirectToRoute('home');

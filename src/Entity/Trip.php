@@ -214,7 +214,7 @@ class Trip
     public function getParticipation(?User $mainUser) {
         $values = 0;
         foreach ($this->users as $user) {
-            if ($user->getId() == $mainUser->getId()) {
+            if ($mainUser != null && $user->getId() == $mainUser->getId()) {
                 $values = 1;
             }
         }

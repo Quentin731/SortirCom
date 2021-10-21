@@ -17,6 +17,7 @@ class HomeController extends AbstractController
 {
 
     private $entityManager;
+    private $errorMessage;
 
     /**
      * ProductController constructor.
@@ -25,6 +26,7 @@ class HomeController extends AbstractController
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
+        $errorMessage ="";
     }
     /**
      * @Route("/", name="home")
@@ -33,7 +35,6 @@ class HomeController extends AbstractController
      */
     public function index(Request $request,PaginatorInterface $paginator): Response
     {
-
         $sorties = $this->entityManager->getRepository(Trip::class)->findAll();
         $paginateSorties= $paginator->paginate(
             $sorties,
@@ -42,7 +43,8 @@ class HomeController extends AbstractController
         );
 
         return $this->render('home/index.html.twig', [
-            'listeSorties' => $paginateSorties
+            'listeSorties' => $paginateSorties,
+            'errorMessage'=>$this->errorMessage
         ]);
     }
 }

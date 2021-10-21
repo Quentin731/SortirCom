@@ -39,9 +39,9 @@
                         <a class="nav-link" href="{{ path('home') }}">Liste Sorties</a>
                     </li>
                     {% if app.user != null and 'ROLE_ADMIN' in app.user.getroles(TRUE) %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('dashboard') }}">Administration</a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('dashboard') }}">Administration</a>
+                        </li>
                     {% endif %}
                     {% if app.user != null and 'ROLE_ORGA' in app.user.getroles(TRUE) %}
                         <li class="nav-item">
@@ -87,6 +87,11 @@
     {% endblock %}
 </head>
 <body>
+{% if (errorMessage is defined and errorMessage != "") %}
+    <div class="alert alert-danger" role="alert">
+        {{ errorMessage }}
+    </div>
+{% endif %}
 {% block body %}{% endblock %}
 </body>
 <!-- MDB -->

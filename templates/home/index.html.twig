@@ -44,7 +44,7 @@
                                 {% endif %}
                                 {% if app.user != null and 'ROLE_USER' in app.user.getroles(TRUE) %}
                                     <a href="{{ path('registration',{ 'id': sortie.id }) }}" class="btn btn-outline-primary btn-floating"><i class="fas fa-check"></i></a>
-                                    <a href="{{ path('abandonment',{ 'id': sortie.id }) }}" class="btn btn-outline-danger btn-floating"><i class="fas fa-cross"></i></a>
+                                    <a href="{{ path('abandonment',{ 'id': sortie.id }) }}" class="btn btn-outline-danger btn-floating"><i class="fas fa-times"></i></a>
                                 {% endif %}
                                 {% if app.user == null  %}
                                     <a href="#" class="btn btn-outline-primary">Connexion</a>

@@ -50,7 +50,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/user/modification", name="app_edit_register")
+     * @Route("/modification/user", name="app_edit_register")
      */
     public function modification(Request $request, UserPasswordHasherInterface $userPasswordHasherInterface): Response
     {

@@ -303,7 +303,7 @@ class Trip
         if($this->endDate() < $dateNow){
             $error = "Impossible, Les Inscriptions sont terminées";
         }
-        if($this->capacity==$this->getSizeOfUsers()){
+        if($this->capacity >= $this->getSizeOfUsers()){
             $error = "Impossible, La sortie est pleine";
         }
         if($error==null){

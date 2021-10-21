@@ -60,11 +60,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $phoneNumber;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Trip::class, inversedBy="users")
-     */
-    private $trips;
-
 
     /**
      * @ORM\ManyToOne(targetEntity=City::class, inversedBy="users")
@@ -72,9 +67,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $city;
 
     /**
-     * @ORM\OneToMany(targetEntity=Trip::class, mappedBy="user", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity=Trip::class, mappedBy="organizer", cascade={"remove"})
      */
     private $trip;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isActive = 1;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Trip::class, mappedBy="users")
+     */
+    private $trips;
 
     public function __construct()
     {
@@ -92,7 +97,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->username;
+        return (string)$this->username;
     }
 
     public function setUsername(string $username): self
@@ -109,7 +114,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->username;
+        return (string)$this->username;
     }
 
     /**
@@ -214,29 +219,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|Trip[]
-     */
-    public function getTrips(): Collection
-    {
-        return $this->trips;
-    }
-
-    public function addTrip(Trip $trip): self
-    {
-        if (!$this->trips->contains($trip)) {
-            $this->trips[] = $trip;
-        }
-
-        return $this;
-    }
-
-    public function removeTrip(Trip $trip): self
-    {
-        $this->trips->removeElement($trip);
-
-        return $this;
-    }
 
     public function getCity(): ?City
     {
@@ -250,7 +232,63 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function __toString(){
+    /**
+     * @return ArrayCollection
+     */
+    public function getTrip(): ArrayCollection
+    {
+        return $this->trip;
+    }
+
+    /**
+     * @param ArrayCollection $trip
+     */
+    public function setTrip(ArrayCollection $trip): void
+    {
+        $this->trip = $trip;
+    }
+
+    public function __toString()
+    {
         return $this->username;
+    }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): self
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Trip[]
+     */
+    public function getTrips(): Collection
+    {
+        return $this->trips;
+    }
+
+    public function addTrip(Trip $trip): self
+    {
+        if (!$this->trips->contains($trip)) {
+            $this->trips[] = $trip;
+            $trip->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTrip(Trip $trip): self
+    {
+        if ($this->trips->removeElement($trip)) {
+            $trip->removeUser($this);
+        }
+
+        return $this;
     }
 }

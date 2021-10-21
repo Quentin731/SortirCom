@@ -55,11 +55,6 @@ class Trip
     private $place;
 
     /**
-     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="trips")
-     */
-    private $users;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $cencelationReason;
@@ -70,7 +65,7 @@ class Trip
     private $endDate;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="listTrips", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="trip", cascade={"persist"})
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $organizer;
@@ -79,6 +74,11 @@ class Trip
      * @ORM\Column(type="smallint", nullable=true)
      */
     private $state = 1;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="trips")
+     */
+    private $users;
 
     public function __construct()
     {
@@ -174,38 +174,6 @@ class Trip
         return $this;
     }
 
-    /**
-     * @return Collection|User[]
-     */
-    public function getUsers(): Collection
-    {
-        return $this->users;
-    }
-
-    public function addUser(User $user): self
-    {
-        if (!$this->users->contains($user)) {
-            $this->users[] = $user;
-        }
-
-        return $this;
-    }
-
-    public function addUsers(array $users): self
-    {
-        foreach($users as $user){
-            $this->addUser($user);
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): self
-    {
-        $this->users->removeElement($user);
-
-        return $this;
-    }
 
     public function getCencelationReason(): ?string
     {
@@ -290,5 +258,29 @@ class Trip
 
     public function __toString(){
         return $this->tripName;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        $this->users->removeElement($user);
+
+        return $this;
     }
 }

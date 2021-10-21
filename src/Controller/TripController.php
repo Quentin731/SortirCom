@@ -49,9 +49,48 @@ class TripController extends AbstractController
     public function show($id) : Response
     {
         $sortie = $this->entityManager->getRepository(Trip::class)->find($id);
+        $sortie->addUser($this->getUser());
 
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+        $isPersisted = $entityManager->contains($sortie);
+        echo $isPersisted;
         return $this->render('sortie/show-index.html.twig', [
             'sortie' => $sortie
         ]);
     }
+
+    /**
+     * @Route("/trip/{id}/registration", name="registration")
+     */
+    public function registration($id) : Response
+    {
+        $user = $this->getUser();
+        $trip = $this->entityManager->getRepository(Trip::class)->find($id);
+        $trip->addUser($user);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($trip);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('home');
+    }
+
+    /**
+     * @Route("/trip/{id}/abandonment", name="abandonment")
+     */
+    public function abandonment($id) : Response
+    {
+        $user = $this->getUser();
+        $trip = $this->entityManager->getRepository(Trip::class)->find($id);
+        $user->removeTrip($trip);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('home');
+    }
+
 }

@@ -1,6 +1,8 @@
 function placeLoad() {
-    let cityId = document.getElementById("city").value;
+    console.log("test")
+    let cityId = document.getElementById("create_sortie_place").value;
     let select = document.getElementById("place");
+    console.log(cityId)
     fetch("http://127.0.0.1:8000/placeList/" + cityId)
         .then(response => response.json())
         .then((places) => {

@@ -84,8 +84,8 @@
 
     {% block javascripts %}
         {# {{ encore_entry_script_tags('app') }} #}
-        <script src="{{ asset("js/app.js") }}"></script>
     {% endblock %}
+    <script src="{{ asset("js/app.js") }}"></script>
 </head>
 <body>
 {% if (errorMessage is defined and errorMessage != "") %}

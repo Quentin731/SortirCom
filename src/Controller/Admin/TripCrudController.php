@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Trip;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
@@ -22,6 +23,7 @@ class TripCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
+            IdField::new('id')->hideOnForm(),
             TextField::new('tripName')->setLabel('nom'),
             TextEditorField::new('description'),
             DateTimeField::new('tripStartDate')->setLabel('Date de début'),
@@ -31,7 +33,7 @@ class TripCrudController extends AbstractCrudController
             IntegerField::new('capacity')->setLabel('Capacité'),
             AssociationField::new('place')->autocomplete()->setLabel('Nom du lieu de la sortie'),
             AssociationField::new('organizer')->autocomplete()->setLabel('Organisateur'),
-
+            ChoiceField::new('state')->setChoices(['Annulée' => '1','Ouvert' => '2','En création' => 'En création'])->setLabel('Etat'),
         ];
     }
 

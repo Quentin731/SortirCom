@@ -11,7 +11,7 @@
                 <div class="card-body text-center">
                     <h5 class="card-title">Modifier mon profil</h5>
                     {{ form_start(registrationForm) }}
-                    {{ form_widget(registrationForm.username, {'attr': {'class': 'invisible'}}) }}
+                    {{ form_widget(registrationForm.username) }}
                     {{ form_row(registrationForm.lastname) }}
                     {{ form_row(registrationForm.firstname) }}
                     {{ form_row(registrationForm.email) }}

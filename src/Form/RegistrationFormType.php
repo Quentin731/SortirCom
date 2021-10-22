@@ -17,6 +17,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class RegistrationFormType extends AbstractType
 {
@@ -25,6 +26,7 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('username', TextType::class, ['label' => 'Pseudo'])
             ->add('lastname', TextType::class, ['label' => 'Nom'])
+            ->add('imageFile', VichImageType::class)
             ->add('firstname', TextType::class, ['label' => 'Prénom'])
             ->add('email', EmailType::class, ['label' => 'Email'])
             ->add('phoneNumber', TelType::class, ['label' => 'Numero de téléphone'])

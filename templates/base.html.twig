@@ -33,8 +33,11 @@
 
             <!-- Collapsible wrapper -->
             <div class="collapse navbar-collapse" id="navbarButtonsExample">
-                <!-- Left links -->
+                <a class="navbar-brand mt-2 mt-lg-0" href="#">
+                    <i class="fas fa-2x fa-door-open"></i>
+                </a>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('home') }}">Liste Sorties</a>
                     </li>
@@ -43,7 +46,7 @@
                             <a class="nav-link" href="{{ path('dashboard') }}">Administration</a>
                         </li>
                     {% endif %}
-                    {% if app.user != null and 'ROLE_ORGA' in app.user.getroles(TRUE) %}
+                    {% if app.user != null and 'ROLE_ORGA' in app.user.getroles(TRUE) or app.user != null and 'ROLE_ADMIN' in app.user.getroles(TRUE) %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('create_sortie') }}">Créer une nouvelle sortie</a>
                         </li>

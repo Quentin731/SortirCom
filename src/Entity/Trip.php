@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\TripRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -226,12 +227,12 @@ class Trip
     }
 
     public function getEtatToString(){
-        $dateNow= date("Y-m-d H:i:s");
+        $dateNow= new DateTime('now');
         if($this->state==1){
             return "Annulée";
         }
         if($this->state==2){
-            if($this->deadlineRegistrationDate<$dateNow && $this->getSizeOfUsers()==$this->capacity){
+            if($this->deadlineRegistrationDate>$dateNow){
                 return "Ouvert";
             }
             else{
@@ -293,21 +294,34 @@ class Trip
 
     public function addUserWithValidation(User $user){
         $error=null;
-        $dateNow= date("Y-m-d H:i:s");
+        $dateNow = new DateTime('now');;
 
         if($this->state==1) {
             $error = "Impossible, La sortie a été annulée";
         }elseif ($this->state==3){
             $error = "Impossible, La sortie a pas encore été publiée";
         }
-        if($this->endDate() < $dateNow){
+        if($this->deadlineRegistrationDate <= $dateNow){
             $error = "Impossible, Les Inscriptions sont terminées";
         }
-        if($this->capacity >= $this->getSizeOfUsers()){
+        if($this->capacity <= $this->getSizeOfUsers()){
             $error = "Impossible, La sortie est pleine";
         }
         if($error==null){
             $this->addUser($user);
+        }
+        return $error;
+    }
+    public function removeUserWithValidation(User $user){
+        $error=null;
+        $dateNow = new DateTime('now');;
+
+        if($this->deadlineRegistrationDate <= $dateNow) {
+            $error = "Impossible, La sortie a débutée";
+        }
+
+        if($error==null){
+            $this->removeUser($user);
         }
         return $error;
     }

@@ -1,16 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Liste des Sorties{% endblock %}
 
 {% block body %}
     <style>
     </style>
-    <h1>Logo Sortir.com</h1>
+    <h3 class="text-center mt-4 mb-4">Liste des sorties</h3>
     <div class="container">
 
 
         <div class="row">
-            <div class="card">
+            <div class="card" style="height:  80vh; overflow: auto;">
                 <table class="table">
                     <thead>
                     <tr>
@@ -38,7 +38,7 @@
                             </td>
                             <td>{{ sortie.organizer.lastname }}</td>
                             <td>
-                                {% if app.user ==  sortie.organizer %}
+                                {% if app.user == sortie.organizer or app.user != null and 'ROLE_ADMIN' in app.user.getroles(TRUE)%}
                                     <a href="#" class="btn btn-outline-primary btn-floating"><i class="fas fa-edit"></i></a>
                                     <a href="#" class="btn btn-outline-danger btn-floating"><i class="fas fa-trash"></i></a>
                                 {% endif %}
@@ -54,7 +54,6 @@
                     {% endfor %}
                     </tbody>
                 </table>
-                {{ knp_pagination_render(listeSorties) }}
             </div>
         </div>
     </div>

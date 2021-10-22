@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\TripRepository;
+use DateInterval;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -324,5 +325,14 @@ class Trip
             $this->removeUser($user);
         }
         return $error;
+    }
+
+    public function getIsAviable(){
+        $dateNow = new DateTime('now');
+        if ($this->getEndDate()->add(new DateInterval('P30D')) < $dateNow){
+            $dateNow = new DateTime('now');
+            return false;
+        }
+        return true;
     }
 }

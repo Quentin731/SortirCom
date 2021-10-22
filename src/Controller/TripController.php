@@ -51,13 +51,11 @@ class TripController extends AbstractController
      */
     public function show($id): Response
     {
-
-        $dateNow = new DateTime('now');
         $sortie = $this->entityManager->getRepository(Trip::class)->find($id);
         if ($sortie == null) {
             return $this->redirectToRoute('home', array("error" => "impossible, la sortie n'existe pas"));
         }
-        if ($sortie->getEndDate()->add(new DateInterval('P30D')) < $dateNow) {
+        if ($sortie->getIsAviable() == false){
             return $this->redirectToRoute('home', array("error" => "impossible, la sortie est terminée depuis 30 jours"));
         }
 

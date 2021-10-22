@@ -28,7 +28,13 @@
                     {% for sortie in listeSorties %}
                         <tr>
 
-                            <td><a href="{{ path('show_sortie',{ 'id': sortie.id }) }}">{{ sortie.tripName }}</a></td>
+                            <td>
+                                {% if sortie.getIsAviable %}
+                                    <a href="{{ path('show_sortie',{ 'id': sortie.id }) }}">{{ sortie.tripName }}</a>
+                                {% else %}
+                                    {{ sortie.tripName }}
+                                {% endif %}
+                            </td>
                             <td>{{ sortie.tripStartDate|date("m/d/Y") }}</td>
                             <td>{{ sortie.endDate|date("m/d/Y") }}</td>
                             <td>{{ sortie.getSizeOfUsers() }}/{{ sortie.capacity }}</td>
@@ -38,15 +44,17 @@
                             </td>
                             <td>{{ sortie.organizer.lastname }}</td>
                             <td>
-                                {% if app.user == sortie.organizer or app.user != null and 'ROLE_ADMIN' in app.user.getroles(TRUE)%}
+                                {% if app.user == sortie.organizer or app.user != null and 'ROLE_ADMIN' in app.user.getroles(TRUE) %}
                                     <a href="#" class="btn btn-outline-primary btn-floating"><i class="fas fa-edit"></i></a>
                                     <a href="#" class="btn btn-outline-danger btn-floating"><i class="fas fa-trash"></i></a>
                                 {% endif %}
                                 {% if app.user != null and 'ROLE_USER' in app.user.getroles(TRUE) %}
-                                    <a href="{{ path('registration',{ 'id': sortie.id }) }}" class="btn btn-outline-primary btn-floating"><i class="fas fa-check"></i></a>
-                                    <a href="{{ path('abandonment',{ 'id': sortie.id }) }}" class="btn btn-outline-danger btn-floating"><i class="fas fa-times"></i></a>
+                                    <a href="{{ path('registration',{ 'id': sortie.id }) }}"
+                                       class="btn btn-outline-primary btn-floating"><i class="fas fa-check"></i></a>
+                                    <a href="{{ path('abandonment',{ 'id': sortie.id }) }}"
+                                       class="btn btn-outline-danger btn-floating"><i class="fas fa-times"></i></a>
                                 {% endif %}
-                                {% if app.user == null  %}
+                                {% if app.user == null %}
                                     <a href="#" class="btn btn-outline-primary">Connexion</a>
                                 {% endif %}
                             </td>

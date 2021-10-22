@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function () {
+            // you may need to change this code if you are not using Bootstrap Datepicker
+            $('.js-datepicker').datepicker({
+                format: 'yyyy-mm-dd'
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-4 mb-4" style="max-width: 800px; justify-content: space-around">
+        <div class="row">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h2 class="card-title">Annuler une sortie</h2>
+                    <div class="row" style="border: 1px">
+                        <div class="col-6 font-weight-bold">
+                            <p class="card-text bold">Nom de la sortie :</p>
+                        </div>
+                        <div class="col-6">
+                            <p>{{ trip.tripName }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 font-weight-bold">
+                            <p class="card-text">Date de la sortie :</p>
+                        </div>
+                        <div class="col-6">
+                            <p>{{ trip.tripStartDate|date("m/d/Y") }}</p>
+                        </div>
+                    </div>
+                    <div class="row" style="border: 1px">
+                        <div class="col-6 font-weight-bold">
+                            <p class="card-text bold">Lieu :</p>
+                        </div>
+                        <div class="col-6">
+                            <p>{{ trip.place.placeName }}</p>
+                        </div>
+                    </div>
+                    <div class="row" style="border: 1px">
+                        <div class="col-6 font-weight-bold">
+                            <p class="card-text bold">Ville organisatrice :</p>
+                        </div>
+                        <div class="col-6">
+                            <p>{{ trip.place.city.cityName }}</p>
+                        </div>
+                    </div>
+                    {{ form_start(form) }}
+                    <div class="row" style="border: 1px">
+                        <div class="col-6 font-weight-bold">
+                            <p class="card-text bold">Motif :</p>
+                        </div>
+                        <div class="col-6">
+                            {{ form_row(form.cencelationReason) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12 mb-2">
+                            <button type="submit" class="btn btn-block btn-primary">Enregistrer</button>
+                        </div>
+                        <div class="col-lg-6 col-md-12 mb-2">
+                            <a href="{{ path("show_sortie", {"id":trip.id}) }}" class="btn btn-block btn-primary">Annuler</a>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -15,11 +15,7 @@
                         {{ form_errors(editUserForm) }}
                         {{ form_row(editUserForm.username) }}
                     </div>
-                    <div class="row">
-                        {% if user is defined %}
-                            <img src="{{ vich_uploader_asset(user, 'imageFile') }}" width="50px">
-                        {% endif %}
-
+                    <div class="row" style="size: initial">
                         {{ form_row(editUserForm.imageFile) }}
                     </div>
                     {{ form_row(editUserForm.lastname) }}

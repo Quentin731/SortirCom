@@ -49,6 +49,14 @@
                                 <p>{{ user.city.cityName }}</p>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-6 font-weight-bold">
+                                <p class="card-text">image :</p>
+                            </div>
+                            <div class="col-6">
+                                <img src="{{ vich_uploader_asset(user, 'imageFile') }}" style="height: 10vh">
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-6">

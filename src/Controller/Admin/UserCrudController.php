@@ -30,6 +30,7 @@ class UserCrudController extends AbstractCrudController
             EmailField::new('email')->setLabel('Email'),
             TelephoneField::new('phone_number')->setLabel('Téléphone'),
             BooleanField::new('is_active')->setLabel('Compte actif ?'),
+
             ChoiceField::new('roles')
                 ->allowMultipleChoices()
                 ->setChoices([

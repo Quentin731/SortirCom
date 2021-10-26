@@ -36,6 +36,12 @@
             $form = $this->createForm(CreateSortieType::class, $sortie);
             $form->handleRequest($request);
 
+            $groupsOfUser = $this->getUser()->getGroups();
+            if ($groupsOfUser == null) {
+                return $this->redirectToRoute('home', array("error" => "impossible vous n'êtes dans aucun groupe"));
+            }
+//            dd($groupsOfUser);
+
             if ($form->isSubmitted() && $form->isValid()) {
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($sortie);

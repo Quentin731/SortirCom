@@ -2,9 +2,12 @@
 
     namespace App\Form;
 
+    use App\Entity\Group;
+    use App\Entity\User;
     use App\Entity\Place;
     use App\Entity\Trip;
     use App\Entity\City;
+    use Doctrine\ORM\EntityRepository;
     use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
     use Symfony\Component\Form\Extension\Core\Type\DateType;
     use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -13,9 +16,16 @@
     use Symfony\Component\Form\Extension\Core\Type\TextType;
     use Symfony\Component\Form\FormBuilderInterface;
     use Symfony\Component\OptionsResolver\OptionsResolver;
+    use Symfony\Component\Security\Core\Security;
 
     class CreateSortieType extends AbstractType
     {
+        private $security;
+
+        public function __construct(Security $security)
+        {
+            $this->security = $security;
+        }
 
         public function buildForm(FormBuilderInterface $builder, array $options): void
         {
@@ -39,7 +49,26 @@
                     "attr" => [
                         "id" => "city"
                     ]
-                ]);
+                ])
+                ->add('groups', EntityType::class, [
+                    'choice_label' => 'label',
+                    'class' => Group::class,
+                    'label' => 'Groupes :',
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('u')
+                            ->join('u.users', 'users')
+                            ->andWhere(sprintf('users.%s = :%s','id', 'id'))
+                            ->setParameter('id', $this->getUserId());
+
+
+                    },
+                    'multiple' => true
+                ])
+            ;
+        }
+
+        public function getUserId(){
+            return $this->security->getUser()->getId();
         }
 
         public function configureOptions(OptionsResolver $resolver): void

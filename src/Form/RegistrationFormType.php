@@ -26,13 +26,15 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('username', TextType::class, ['label' => 'Pseudo'])
             ->add('lastname', TextType::class, ['label' => 'Nom'])
-            ->add('imageFile', VichImageType::class)
+            ->add('imageFile', VichImageType::class, [
+                'imagine_pattern' => 'profile_120_90',
+            ])
             ->add('firstname', TextType::class, ['label' => 'Prénom'])
             ->add('email', EmailType::class, ['label' => 'Email'])
             ->add('phoneNumber', TelType::class, ['label' => 'Numero de téléphone'])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
-                'label'=> "Accepter les conditions d'utilisation",
+                'label' => "Accepter les conditions d'utilisation",
                 'constraints' => [
                     new IsTrue([
                         'message' => 'You should agree to our terms.',
@@ -47,9 +49,9 @@ class RegistrationFormType extends AbstractType
                 'label' => 'Votre mot de passe',
                 'required' => true,
                 'first_options' => ['label' => 'Mot de passe',
-                    ],
+                ],
                 'second_options' => ['label' => 'Confirmer votre mot de passe',
-                    ]
+                ]
             ])->add('city', EntityType::class, [
                 'class' => City::class,
                 'choice_label' => 'cityName',

@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello GroupController!{% endblock %}
+
+{% block body %}
+    <div class="container mt-3" style="max-width: 1000px">
+        <h3 class="text-center">Créer votre sortie</h3>
+        {{ form_start(createGroup) }}
+        <div class="row">
+            <div class="col-lg-6 col-md-12">
+                {{ form_row(createGroup.label) }}
+            </div>
+            <div class="row">
+                {{ form_row(createGroup.users) }}
+            </div>
+            <div class="col-lg-4 col-md-12 mb-2">
+                <button type="submit" class="btn btn-block btn-primary">Enregistrer</button>
+            </div>
+        </div>
+        {{ form_end(createGroup) }}
+    </div>
+{% endblock %}

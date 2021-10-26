@@ -51,6 +51,11 @@
                             <a class="nav-link" href="{{ path('create_sortie') }}">Créer une nouvelle sortie</a>
                         </li>
                     {% endif %}
+                    {% if app.user != null and 'ROLE_USER' in app.user.getroles(TRUE) or app.user != null and 'ROLE_ADMIN' in app.user.getroles(TRUE) %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('create_group') }}">Créer un nouveau groupe</a>
+                        </li>
+                    {% endif %}
                 </ul>
                 <!-- Left links -->
 

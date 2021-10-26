@@ -82,9 +82,15 @@ class Trip
      */
     private $users;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Group::class, inversedBy="trips")
+     */
+    private $groups;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->groups = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -334,5 +340,29 @@ class Trip
             return false;
         }
         return true;
+    }
+
+    /**
+     * @return Collection|Group[]
+     */
+    public function getGroups(): Collection
+    {
+        return $this->groups;
+    }
+
+    public function addGroup(Group $group): self
+    {
+        if (!$this->groups->contains($group)) {
+            $this->groups[] = $group;
+        }
+
+        return $this;
+    }
+
+    public function removeGroup(Group $group): self
+    {
+        $this->groups->removeElement($group);
+
+        return $this;
     }
 }

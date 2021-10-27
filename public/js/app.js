@@ -2,15 +2,21 @@ function placeLoad() {
     console.log("test")
     let cityId = document.getElementById("create_sortie_place").value;
     let select = document.getElementById("place");
-    console.log(cityId)
-    fetch("http://127.0.0.1:8000/placeList/" + cityId)
+    console.log(cityId);
+    fetch("http://sortir/placeList/" + cityId)
         .then(response => response.json())
         .then((places) => {
-            select.innerHTML = "";
+            console.log('ça marche');
+            if (select === true){
+                select.innerHTML = "";
+            }
+            console.log(places);
             for (const eachPlace of places) {
-                let site =  document.createAttribute("option");
+                let site =  document.createElement("option");
                 site.innerText = eachPlace.placeName;
-                select.appendChild(site);
+                site.value = eachPlace.id;
+                console.log(site);
+                select.add(site);
             }
         })
 }

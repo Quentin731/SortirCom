@@ -6,6 +6,7 @@ use App\Repository\PlaceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=PlaceRepository::class)
@@ -14,12 +15,14 @@ class Place
 {
     /**
      * @ORM\Id
+     * @Groups("place")
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
+     * @Groups("place")
      * @ORM\Column(type="string", length=255)
      */
     private $placeName;
@@ -40,6 +43,7 @@ class Place
     private $trips;
 
     /**
+     * @Groups("place")
      * @ORM\ManyToOne(targetEntity=City::class, inversedBy="places")
      */
     private $city;

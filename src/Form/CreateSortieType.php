@@ -33,11 +33,12 @@
                 ->add('tripName', TextType::class, ['label' => 'Nom de la sortie:'])
                 ->add('tripStartDate', DateTimeType::class, [
                     'label' => 'Date et heure de la sortie:',
-                    'widget' => 'single_text',
                 ])
                 ->add('deadlineRegistrationDate', DateType::class, [
                     'label' => 'Date limite d\'inscription:',
-                    'widget' => 'single_text',
+                ])
+                ->add('endDate', DateType::class, [
+                    'label' => 'Date fin:',
                 ])
                 ->add('capacity', IntegerType::class, ['label' => 'Nombre de places:'])
                 ->add('duration', IntegerType::class, ['label' => 'Durée (en minutes):'])
@@ -62,7 +63,8 @@
 
 
                     },
-                    'multiple' => true
+                    'multiple' => true,
+                    'required' => false
                 ])
             ;
         }

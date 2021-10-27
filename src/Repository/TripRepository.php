@@ -34,10 +34,10 @@ class TripRepository extends ServiceEntityRepository
                 ->setParameter('city', $search->getCity()[0]);
         }
 
-        if (!empty($search->getString())) {
+        if (!empty($search->getUserSearch())) {
             $query = $query
                 ->andWhere('t.tripName LIKE :string')
-                ->setParameter('string',"%".$search->getString()."%");
+                ->setParameter('string',"%".$search->getUserSearch()."%");
         }
 
         return $query->getQuery()->getResult();

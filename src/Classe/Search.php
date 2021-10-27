@@ -7,7 +7,7 @@
     use Doctrine\Common\Collections\ArrayCollection;
 
     class Search {
-        public $string;
+        public $userSearch;
 
 
         public $city;
@@ -15,21 +15,21 @@
 
         public function __construct()
         {
-            $this->string = '';
+            $this->userSearch = '';
             $this->city = new ArrayCollection();
         }
 
-        public function getString(): string
+        public function getUserSearch(): string
         {
-            return $this->string;
+            return $this->userSearch;
         }
 
         /**
-         * @param String $string
+         * @param String $userSearch
          */
-        public function setString(string $string): void
+        public function setUserSearch(string $userSearch): void
         {
-            $this->string = $string;
+            $this->userSearch = $userSearch;
         }
 
         /**
@@ -49,6 +49,6 @@
         }
 
         public function __toString(): string {
-            return $this->string;
+            return $this->userSearch;
         }
     }

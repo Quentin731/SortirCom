@@ -17,7 +17,7 @@
         public function buildForm(FormBuilderInterface $builder, array $options): void
         {
             $builder
-                ->add('string', TextType::class, [
+                ->add('userSearch', TextType::class, [
                     'label' => false,
                     'required' => false,
                     'attr' => [

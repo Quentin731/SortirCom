@@ -4,12 +4,25 @@
 
 {% block javascripts %}
     <script>
-        $(document).ready(function () {
-            // you may need to change this code if you are not using Bootstrap Datepicker
-            $('.js-datepicker').datepicker({
-                format: 'yyyy-mm-dd'
-            });
-        });
+        console.log("test avant d'être dans ta function")
+        function placeLoad() {
+            console.log("test")
+            let cityId = document.getElementById("create_sortie_place").value;
+            let select = document.getElementById("place");
+            console.log(cityId)
+            fetch("http://127.0.0.1:8000/placeList/" + cityId)
+                .then(response => response.json())
+                .then((places) => {
+                    select.innerHTML = "";
+                    console.log('ça marche');
+                    console.log(places);
+                    for (const eachPlace of places) {
+                        let site =  document.createAttribute("option");
+                        site.innerText = eachPlace.placeName;
+                        select.appendChild(site);
+                    }
+                })
+        }
     </script>
 {% endblock %}
 
@@ -33,7 +46,7 @@
             </div>
             <div class="col-lg-6 col-md-12">
                 {{ form_row(createSortie.place) }}
-                <select class="form-select" for="place" name="{{ field_name(createSortie.place) }}"
+                <select class="form-select" id="place" name="{{ field_name(createSortie.place) }}"
                         aria-label="Default select example" onclick="placeLoad()">
                 </select>
             </div>
@@ -49,5 +62,6 @@
                 </div>
             </div>
         </div>
+        {{ form_end(createSortie) }}
     </div>
 {% endblock %}

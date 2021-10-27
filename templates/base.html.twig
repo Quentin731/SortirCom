@@ -69,9 +69,17 @@
                         </a>
                     {% endif %}
                     {% if app.user %}
-                        <a href="{{ path('user') }}" class="btn  btn-floating">
+                       <a href="{{ path('user') }}" class="btn  btn-floating">
                             <i class="fas fa-user fa-2x"></i>
                         </a>
+                        {#<a class="btn btn-floating" href="{{ path('user') }}">
+                            <img src="{{ vich_uploader_asset(app.user, 'imageFile') | imagine_filter('avatar')}}"
+                                    class="rounded-circle"
+                                    height="40"
+                                    alt=""
+                                    loading="lazy"
+                            />
+                        </a>#}
                         <a href="{{ path('app_logout') }}" class="btn btn-link">
                             Déconexion
                         </a>

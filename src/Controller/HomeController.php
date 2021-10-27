@@ -4,8 +4,6 @@ namespace App\Controller;
 
 use App\Classe\Search;
 use App\Entity\Trip;
-use App\Form\FilterType;
-use App\Form\RegistrationFormType;
 use App\Form\SearchType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -49,7 +47,8 @@ class HomeController extends AbstractController
 
         return $this->render('home/index.html.twig', [
             'listeSorties' => $trips,
-            'errorMessage'=>$this->errorMessage
+            'errorMessage'=>$this->errorMessage,
+            'tripFiler' => $form->createView()
         ]);
     }
 }

@@ -22,21 +22,21 @@ class TripRepository extends ServiceEntityRepository
 
     public function findWithSearch (Search $search) {
 
-        $query = $this
+         $query = $this
             ->createQueryBuilder('t')
             ->select('c', 't')
             ->join('t.place', 'c');
 
-        if (!empty($search->city)) {
+        if (!empty($search->getCity())) {
             $query = $query
                 ->where('c.id IN (:city)')
-                ->setParameter('city', $search->city);
+                ->setParameter('city', $search['city']->map(function($item) { return $item->getId(); })->toArray(), Connection::PARAM_INT_ARRAY);
         }
 
-        if (!empty($search->string)) {
+        if (!empty($search->getString())) {
             $query = $query
                 ->andWhere('t.name LIKE :string')
-                ->setParameter('string', "%{$search->string}%");
+                ->setParameter('string',"%".$search->getString()."%");
         }
 
         return $query->getQuery()->getResult();

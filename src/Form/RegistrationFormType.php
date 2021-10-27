@@ -27,7 +27,8 @@ class RegistrationFormType extends AbstractType
             ->add('username', TextType::class, ['label' => 'Pseudo'])
             ->add('lastname', TextType::class, ['label' => 'Nom'])
             ->add('imageFile', VichImageType::class, [
-                'imagine_pattern' => 'profile_120_90',
+                'imagine_pattern' => 'avatar',
+                'image_uri' => time().".png",
             ])
             ->add('firstname', TextType::class, ['label' => 'Prénom'])
             ->add('email', EmailType::class, ['label' => 'Email'])

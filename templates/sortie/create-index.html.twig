@@ -11,20 +11,31 @@
                 {{ form_row(createSortie.tripName) }}
                 {{ form_row(createSortie.tripStartDate) }}
                 {{ form_row(createSortie.deadlineRegistrationDate) }}
+                {{ form_row(createSortie.endDate) }}
                 {{ form_row(createSortie.duration) }}
                 {{ form_row(createSortie.description) }}
-                {% if is_granted('ROLE_USER') or is_granted('ROLE_ADMIN') %}
-                    {{ form_row(createSortie.groups) }}
-                {% else %}
-                    {{ form_row(createSortie.capacity) }}
-                {% endif %}
-
             </div>
             <div class="col-lg-6 col-md-12">
-                {{ form_row(createSortie.place) }}
-                <select class="form-select" id="place" name="{{ field_name(createSortie.place) }}"
-                        aria-label="Default select example" onclick="placeLoad()">
-                </select>
+                <div class="row mb-2">
+                    {{ form_label(createSortie.place) }}
+                    <div class="col-8">
+                        {{ form_widget(createSortie.place) }}
+                    </div>
+                    <div class="col-4">
+                        <button type="button" class="btn btn-block" onclick="placeLoad()">Trouver</button>
+                    </div>
+                </div>
+                    <label class="form-label required" for="create_sortie_place">Lieux</label>
+                    <select class="form-select mb-2" id="place" name="{{ field_name(createSortie.place) }}"
+                            aria-label="Default select example">
+                    </select>
+                {% if is_granted('ROLE_USER') or is_granted('ROLE_ADMIN') %}
+                    {{ form_row(createSortie.groups) }}
+                    {{ form_widget(createSortie.capacity, { 'attr': {'class': 'd-none'} }) }}
+                {% else %}
+                    {{ form_row(createSortie.capacity) }}
+                    {{ form_widget(createSortie.groups, { 'attr': {'class': 'd-none'} }) }}
+                {% endif %}
             </div>
             <div class="row">
                 <div class="col-lg-4 col-md-12 mb-2">

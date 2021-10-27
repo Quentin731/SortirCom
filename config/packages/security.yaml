@@ -42,8 +42,9 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/create_sortie, roles: ROLE_ORGA }
-        - { path: ^/user, roles: ROLE_USER }
+        - { path: ^/create_sortie, roles: [ROLE_ORGA, ROLE_USER] }
+        - { path: ^/user, roles: [ROLE_USER,ROLE_ORGA] }
+        - { path: ^/create_group, roles: [ROLE_USER, ROLE_ADMIN] }
         # - { path: ^/profile, roles: ROLE_USER }
 
 

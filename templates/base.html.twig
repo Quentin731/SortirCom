@@ -46,12 +46,12 @@
                             <a class="nav-link" href="{{ path('dashboard') }}">Administration</a>
                         </li>
                     {% endif %}
-                    {% if app.user != null and 'ROLE_ORGA' in app.user.getroles(TRUE) or app.user != null and 'ROLE_ADMIN' in app.user.getroles(TRUE) %}
+                    {% if is_granted('ROLE_USER') or is_granted('ROLE_ORGA') or is_granted('ROLE_ADMIN') %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('create_sortie') }}">Créer une nouvelle sortie</a>
                         </li>
                     {% endif %}
-                    {% if app.user != null and 'ROLE_USER' in app.user.getroles(TRUE) or app.user != null and 'ROLE_ADMIN' in app.user.getroles(TRUE) %}
+                    {% if is_granted('ROLE_USER') or is_granted('ROLE_ADMIN') %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('create_group') }}">Créer un nouveau groupe</a>
                         </li>

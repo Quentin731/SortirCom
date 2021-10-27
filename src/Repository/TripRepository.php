@@ -28,13 +28,13 @@ class TripRepository extends ServiceEntityRepository
                 ->join('t.place', 'places')
                 ->join('places.city', 'cities');
 
-        if (!empty($search->getCity())) {
+        if (strval($search->getCity()[0]) != "") {
             $query = $query
                 ->andWhere('cities.id IN (:city)')
                 ->setParameter('city', $search->getCity()[0]);
         }
 
-        if (!empty($search->getUserSearch())) {
+        if ($search->getUserSearch() != '') {
             $query = $query
                 ->andWhere('t.tripName LIKE :string')
                 ->setParameter('string',"%".$search->getUserSearch()."%");

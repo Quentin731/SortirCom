@@ -23,7 +23,8 @@
                     'attr' => [
                         'placeholder' => 'Tapez votre recherche',
                         'class' => 'form-control-sm'
-                    ]
+                    ],
+                     'empty_data' => ''
                 ])
                 ->add('city', EntityType::class, [
                     'label' => false,

@@ -7,7 +7,7 @@
     </style>
     <h3 class="text-center mt-4 mb-4">Liste des sorties</h3>
     {{ form_start(tripFilter) }}
-    {{ form_row(tripFilter.string) }}
+    {{ form_row(tripFilter.userSearch) }}
     {{ form_row(tripFilter.city) }}
     {{ form_row(tripFilter.submit) }}
     {{ form_end(tripFilter) }}
@@ -45,7 +45,9 @@
                             <td>
                                 {% if sortie.getParticipation(app.user) == 1 %}X{% endif %}
                             </td>
-                            <td>{{ sortie.organizer.lastname }}</td>
+                            {% if sortie.organizer.lastname is defined %}
+                                <td>{{ sortie.organizer.lastname }}</td>
+                            {% endif %}
                             <td>
                                 {% if app.user == sortie.organizer or app.user != null and 'ROLE_ADMIN' in app.user.getroles(TRUE) %}
                                     <a href="#" class="btn btn-outline-primary btn-floating"><i class="fas fa-edit"></i></a>

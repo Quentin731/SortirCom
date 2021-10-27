@@ -39,8 +39,7 @@ class HomeController extends AbstractController
 
         $form->handleRequest($request);
 
-        var_dump($request);
-        if($form->isSubmitted() && $form->isValid()) {
+        if($form->isSubmitted() && $form->isValid() && $search->getUserSearch() != '') {
             $trips = $this->entityManager->getRepository(Trip::class)->findWithSearch($search);
         } else {
             $trips = $this->entityManager->getRepository(Trip::class)->findAll();

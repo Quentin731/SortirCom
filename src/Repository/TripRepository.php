@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Classe\Search;
 use App\Entity\Trip;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Connection;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -22,20 +23,20 @@ class TripRepository extends ServiceEntityRepository
 
     public function findWithSearch (Search $search) {
 
-         $query = $this
-            ->createQueryBuilder('t')
-            ->select('c', 't')
-            ->join('t.place', 'c');
+         $query = $this->
+            createQueryBuilder('t')
+                ->join('t.place', 'places')
+                ->join('places.city', 'cities');
 
         if (!empty($search->getCity())) {
             $query = $query
-                ->where('c.id IN (:city)')
-                ->setParameter('city', $search['city']->map(function($item) { return $item->getId(); })->toArray(), Connection::PARAM_INT_ARRAY);
+                ->andWhere('cities.id IN (:city)')
+                ->setParameter('city', $search->getCity()[0]);
         }
 
         if (!empty($search->getString())) {
             $query = $query
-                ->andWhere('t.name LIKE :string')
+                ->andWhere('t.tripName LIKE :string')
                 ->setParameter('string',"%".$search->getString()."%");
         }
 

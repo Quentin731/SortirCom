@@ -6,7 +6,11 @@
     <style>
     </style>
     <h3 class="text-center mt-4 mb-4">Liste des sorties</h3>
-    {{ form(tripFiler) }}
+    {{ form_start(tripFilter) }}
+    {{ form_row(tripFilter.string) }}
+    {{ form_row(tripFilter.city) }}
+    {{ form_row(tripFilter.submit) }}
+    {{ form_end(tripFilter) }}
     <div class="container">
         <div class="row">
             <div class="card" style="height:  80vh; overflow: auto;">
@@ -24,7 +28,6 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {{ form(listeSorties) }}
                     {% for sortie in listeSorties %}
                         <tr>
 

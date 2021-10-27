@@ -48,7 +48,7 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig', [
             'listeSorties' => $trips,
             'errorMessage'=>$this->errorMessage,
-            'tripFiler' => $form->createView()
+            'tripFilter' => $form->createView()
         ]);
     }
 }

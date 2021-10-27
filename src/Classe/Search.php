@@ -4,18 +4,21 @@
 
 
     use App\Entity\City;
+    use Doctrine\Common\Collections\ArrayCollection;
 
     class Search {
-        public $string = '';
+        public $string;
 
-        /**
-         * @var City[]
-         */
-        public $city = [];
 
-        /**
-         * @return String
-         */
+        public $city;
+
+
+        public function __construct()
+        {
+            $this->string = '';
+            $this->city = new ArrayCollection();
+        }
+
         public function getString(): string
         {
             return $this->string;
@@ -30,9 +33,9 @@
         }
 
         /**
-         * @return City[]
+         * @return Collection|City[]
          */
-        public function getCity(): array
+        public function getCity()
         {
             return $this->city;
         }
@@ -45,5 +48,7 @@
             $this->city = $city;
         }
 
-
+        public function __toString(): string {
+            return $this->string;
+        }
     }

@@ -29,8 +29,7 @@
                     'label' => false,
                     'required' => false,
                     'class' => City::class,
-                    'multiple' => true,
-                    'expanded' => true
+                    'multiple' => true
                 ])
                 ->add('submit', SubmitType::class, [
                     'label' => 'Filtrer',

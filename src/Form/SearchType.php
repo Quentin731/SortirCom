@@ -18,7 +18,7 @@
         {
             $builder
                 ->add('userSearch', TextType::class, [
-                    'label' => false,
+                    'label' => 'Nom de la sortie',
                     'required' => false,
                     'attr' => [
                         'placeholder' => 'Tapez votre recherche',
@@ -27,7 +27,7 @@
                      'empty_data' => ''
                 ])
                 ->add('city', EntityType::class, [
-                    'label' => false,
+                    'label' => 'Nom des villes',
                     'required' => false,
                     'class' => City::class,
                     'multiple' => true

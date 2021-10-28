@@ -6,12 +6,21 @@
     <style>
     </style>
     <h3 class="text-center mt-4 mb-4">Liste des sorties</h3>
-    {{ form_start(tripFilter) }}
-    {{ form_row(tripFilter.userSearch) }}
-    {{ form_row(tripFilter.city) }}
-    {{ form_row(tripFilter.submit) }}
-    {{ form_end(tripFilter) }}
     <div class="container">
+        <div class="text-right"></div>
+
+        {{ form_start(tripFilter) }}
+        <div class="row">
+            <div class="col-lg-6 col-md-12">
+                {{ form_row(tripFilter.userSearch) }}
+                <a class="btn btn-block" href="{{ path('home') }}">Supprimer les filtres</a>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                {{ form_row(tripFilter.city) }}
+            </div>
+        </div>
+        {{ form_row(tripFilter.submit) }}
+        {{ form_end(tripFilter) }}
         <div class="row">
             <div class="card" style="height:  80vh; overflow: auto;">
                 <table class="table">

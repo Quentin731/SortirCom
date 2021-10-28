@@ -123,9 +123,6 @@ class TripController extends AbstractController
     public function getJsonPlaceList(City $city, PlaceRepository $placeRepository)
     {
         $places = $placeRepository->findBy(["city" => $city]);
-
-//        dd($this->json($places, Response::HTTP_OK, [], ['groups' => ['place', 'city']]));
-
         return $this->json($places, Response::HTTP_OK, [], ['groups' => ['place', 'city']]);
     }
 

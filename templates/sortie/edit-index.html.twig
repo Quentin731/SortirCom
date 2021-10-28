@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container mt-3" style="max-width: 1000px">
+        {{ form_start(editTrip) }}
+        <h3 class="text-center">Modifier votre sortie</h3>
+        <div class="row">
+            <div class="col-lg-6 col-md-12">
+                {{ form_row(editTrip.tripName) }}
+                {{ form_row(editTrip.tripStartDate) }}
+                {{ form_row(editTrip.deadlineRegistrationDate) }}
+                {{ form_row(editTrip.endDate) }}
+                {{ form_row(editTrip.duration) }}
+                {{ form_row(editTrip.description) }}
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <div class="row mb-2">
+                    {{ form_label(editTrip.place) }}
+                    <div class="col-8">
+                        {{ form_widget(editTrip.place) }}
+                    </div>
+                    <div class="col-4">
+                        <button type="button" class="btn btn-block" onclick="placeLoad()">Trouver</button>
+                    </div>
+                </div>
+                    <label class="form-label required" for="create_sortie_place">Lieux</label>
+                    <select class="form-select mb-2" id="place" name="{{ field_name(editTrip.place) }}"
+                            aria-label="Default select example">
+                    </select>
+                {% if is_granted('ROLE_USER') or is_granted('ROLE_ADMIN') %}
+                    {{ form_row(editTrip.groups) }}
+                    {{ form_widget(editTrip.capacity, { 'attr': {'class': 'd-none'} }) }}
+                {% else %}
+                    {{ form_row(editTrip.capacity) }}
+                    {{ form_widget(editTrip.groups, { 'attr': {'class': 'd-none'} }) }}
+                {% endif %}
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-12 mb-2">
+                    {{ form_row(editTrip.save) }}
+                </div>
+                <div class="col-lg-4 col-md-12 mb-2">
+                    {{ form_row(editTrip.published) }}
+                </div>
+                <div class="col-lg-4 col-md-12 mb-2">
+                    <a href="{{ path('home') }}" class="btn btn-block btn-primary">Annuler</a>
+                </div>
+            </div>
+        </div>
+        {{ form_end(editTrip) }}
+    </div>
+{% endblock %}

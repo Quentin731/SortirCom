@@ -8,6 +8,7 @@
     use App\Entity\Trip;
     use App\Entity\City;
     use Doctrine\ORM\EntityRepository;
+    use Symfony\Component\Form\Extension\Core\Type\SubmitType;
     use Symfony\Component\Form\Extension\Core\Type\TextareaType;
     use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
     use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -44,7 +45,7 @@
                     'label' => 'Date fin:',
                     'widget' => 'single_text',
                 ])
-                ->add('capacity', IntegerType::class, ['label' => 'Nombre de places:'])
+                ->add('capacity', IntegerType::class, ['label' => 'Nombre de places:', 'required' => false])
                 ->add('duration', IntegerType::class, ['label' => 'Durée (en minutes):'])
                 ->add('description', TextareaType::class, ['label' => 'Description et infos:'])
                 ->add('place', EntityType::class, [
@@ -70,6 +71,14 @@
                     'multiple' => true,
                     'required' => false
                 ])
+                ->add('save', SubmitType::class, ['label' => 'Enregistrer',
+                    "attr" => [
+                    "class" => "btn btn-block btn-primary"
+                ]])
+                ->add('published', SubmitType::class, ['label' => 'Publier',
+                    "attr" => [
+                        "class" => "btn btn-block btn-primary"
+                    ]])
             ;
         }
 

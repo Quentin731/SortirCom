@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\City;
 use App\Entity\Trip;
 use App\Form\CreateTripFormType;
-use App\Form\CancelationTripFormType;
+use App\Form\CancelationTripType;
 use App\Repository\PlaceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -42,9 +42,18 @@ class TripController extends AbstractController
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if($form->get('save')->isClicked()) {
+                $sortie->setState(3);
+            }
+            if($form->get('published')->isClicked()) {
+                $sortie->setState(2);
+            }
+            $sortie->setOrganizer($this->getUser());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($sortie);
             $entityManager->flush();
+
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('sortie/create-index.html.twig', [
@@ -141,6 +150,34 @@ class TripController extends AbstractController
         return $this->render('sortie/cancel-index.html.twig', [
             'form' => $form->createView(),
             'trip' => $trip
+        ]);
+    }
+
+    /**
+     * @Route("/trip/{id}/edit", name="editTrip")
+     */
+    public function editTrip(Request $request, $id) : Response {
+
+        $trip = $this->entityManager->getRepository(Trip::class)->find($id);
+
+        if(is_null($trip)){
+            return $this->redirectToRoute('home');
+        }
+
+        $form = $this->createForm(CreateSortieType::class, $trip);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $trip->setOrganizer($this->getUser());
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($trip);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('home');
+        }
+
+        return $this->render('sortie/edit-index.html.twig', [
+            'editTrip' => $form->createView(),
         ]);
     }
 }

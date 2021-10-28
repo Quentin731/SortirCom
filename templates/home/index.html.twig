@@ -60,7 +60,8 @@
                             <td>
                                 {% if app.user == sortie.organizer or app.user != null and 'ROLE_ADMIN' in app.user.getroles(TRUE) %}
                                     <a href="#" class="btn btn-outline-primary btn-floating"><i class="fas fa-edit"></i></a>
-                                    <a href="#" class="btn btn-outline-danger btn-floating"><i class="fas fa-trash"></i></a>
+                                    <a href="{{ path('cancelation',{ 'id': sortie.id }) }}"
+                                       class="btn btn-outline-danger btn-floating"><i class="fas fa-trash"></i></a>
                                 {% endif %}
                                 {% if app.user != null and 'ROLE_USER' in app.user.getroles(TRUE) %}
                                     <a href="{{ path('registration',{ 'id': sortie.id }) }}"

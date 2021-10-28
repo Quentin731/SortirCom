@@ -1,6 +1,6 @@
 function placeLoad() {
     ClearOptionsFast();
-    let cityId = document.getElementById("create_sortie_place").value;
+    let cityId = document.getElementById("create_trip_form_place").value;
     let select = document.getElementById("place");
     fetch("http://127.0.0.1:8000/placeList/" + cityId)
         .then(response => response.json())

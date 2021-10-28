@@ -4,8 +4,8 @@ namespace App\Controller;
 
 use App\Entity\City;
 use App\Entity\Trip;
-use App\Form\CreateSortieType;
-use App\Form\CancelationTripType;
+use App\Form\CreateTripFormType;
+use App\Form\CancelationTripFormType;
 use App\Repository\PlaceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,7 +33,7 @@ class TripController extends AbstractController
     public function index(Request $request): Response
     {
         $sortie = new Trip();
-        $form = $this->createForm(CreateSortieType::class, $sortie);
+        $form = $this->createForm(CreateTripFormType::class, $sortie);
         $form->handleRequest($request);
 
         $user = $this->getUser();
@@ -126,7 +126,7 @@ class TripController extends AbstractController
     public function cancelationTrip(Request $request, $id): Response
     {
         $trip = $this->entityManager->getRepository(Trip::class)->find($id);
-        $form = $this->createForm(CancelationTripType::class, $trip);
+        $form = $this->createForm(CancelationTripFormType::class, $trip);
         $form->handleRequest($request);
 
         $dateNow = date("Y-m-d H:i:s");

@@ -12,7 +12,7 @@
     use Symfony\Component\Form\FormBuilderInterface;
     use Symfony\Component\OptionsResolver\OptionsResolver;
 
-    class SearchType extends AbstractType
+    class SearchFormType extends AbstractType
     {
         public function buildForm(FormBuilderInterface $builder, array $options): void
         {

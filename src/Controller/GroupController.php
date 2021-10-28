@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Group;
-use App\Form\CreateSortieType;
 use App\Form\GroupFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,6 +22,7 @@ class GroupController extends AbstractController
     {
         $this->entityManager = $entityManager;
     }
+
     /**
      * @Route("/create_group", name="create_group")
      */

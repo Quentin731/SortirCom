@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Classe\Search;
 use App\Entity\Trip;
-use App\Form\SearchType;
+use App\Form\SearchFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,6 +26,7 @@ class HomeController extends AbstractController
     {
         $this->entityManager = $entityManager;
     }
+
     /**
      * @Route("/", name="home")
      * @param Request $request
@@ -35,11 +36,11 @@ class HomeController extends AbstractController
     {
         $search = new Search();
 
-        $form = $this->createForm(SearchType::class, $search);
+        $form = $this->createForm(SearchFormType::class, $search);
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $trips = $this->entityManager->getRepository(Trip::class)->findWithSearch($search);
         } else {
             $trips = $this->entityManager->getRepository(Trip::class)->findAll();
@@ -47,7 +48,7 @@ class HomeController extends AbstractController
 
         return $this->render('home/index.html.twig', [
             'listeSorties' => $trips,
-            'errorMessage'=>$this->errorMessage,
+            'errorMessage' => $this->errorMessage,
             'tripFilter' => $form->createView()
         ]);
     }

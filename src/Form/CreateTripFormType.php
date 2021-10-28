@@ -19,7 +19,7 @@
     use Symfony\Component\OptionsResolver\OptionsResolver;
     use Symfony\Component\Security\Core\Security;
 
-    class CreateSortieType extends AbstractType
+    class CreateTripFormType extends AbstractType
     {
         private $security;
 

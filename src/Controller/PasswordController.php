@@ -41,7 +41,7 @@ class PasswordController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $old_password = $form->get('old_password')->getData();
-            if($hasher->isPasswordValid($user, $old_password)) {
+            if ($hasher->isPasswordValid($user, $old_password)) {
                 $new_password = $form->get('new_password')->getData();
                 $password = $hasher->hashPassword($user, $new_password);
                 $user->setPassword($password);

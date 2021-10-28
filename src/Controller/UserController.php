@@ -20,7 +20,7 @@ class UserController extends AbstractController
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
-        $errorMessage ="";
+        $errorMessage = "";
     }
 
     /**
@@ -29,7 +29,7 @@ class UserController extends AbstractController
     public function index(): Response
     {
         $user = $this->getUser();
-        if(is_null($user)){
+        if (is_null($user)) {
             return $this->redirectToRoute('home');
         }
         return $this->render('user/index.html.twig', [
@@ -55,7 +55,7 @@ class UserController extends AbstractController
     public function modification(Request $request, UserPasswordHasherInterface $userPasswordHasherInterface): Response
     {
         $user = $this->getUser();
-        if(is_null($user)){
+        if (is_null($user)) {
             return $this->redirectToRoute('home');
         }
         $form = $this->createForm(RegistrationFormType::class, $user);

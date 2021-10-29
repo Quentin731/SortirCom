@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\City;
 use App\Entity\Trip;
+use App\Form\CancelationTripFormType;
 use App\Form\CreateTripFormType;
 use App\Form\CancelationTripType;
 use App\Repository\PlaceRepository;
@@ -161,7 +162,7 @@ class TripController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-        $form = $this->createForm(CreateSortieType::class, $trip);
+        $form = $this->createForm(CreateTripFormType::class, $trip);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

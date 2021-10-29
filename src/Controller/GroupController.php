@@ -36,6 +36,8 @@ class GroupController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($group);
             $entityManager->flush();
+
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('group/index.html.twig', [

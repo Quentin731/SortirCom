@@ -29,6 +29,7 @@ class RegistrationFormType extends AbstractType
             ->add('imageFile', VichImageType::class, [
                 'imagine_pattern' => 'avatar',
                 'image_uri' => time().".png",
+                'required'=>false,
             ])
             ->add('firstname', TextType::class, ['label' => 'Prénom'])
             ->add('email', EmailType::class, ['label' => 'Email'])

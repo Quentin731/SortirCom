@@ -63,15 +63,7 @@
                                     <p class="card-text">Ville organisatrice :</p>
                                 </div>
                                 <div class="col-6">
-                                    <p></p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6 font-weight-bold">
-                                    <p class="card-text">Lieu :</p>
-                                </div>
-                                <div class="col-6">
-                                    <p>{{ sortie.place.placeName }}</p>
+                                    <p>{{ sortie.place.city.cityName }}</p>
                                 </div>
                             </div>
                             <div class="row">
@@ -79,7 +71,7 @@
                                     <p class="card-text">Rue :</p>
                                 </div>
                                 <div class="col-6">
-                                    <p></p>
+                                    <p>{{ sortie.place.placeName }}</p>
                                 </div>
                             </div>
                             <div class="row">
@@ -87,25 +79,10 @@
                                     <p class="card-text">Code postal :</p>
                                 </div>
                                 <div class="col-6">
-                                    <p></p>
+                                    <p>{{ sortie.place.city.postalCode }}</p>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-6 font-weight-bold">
-                                    <p class="card-text">Latitude</p>
-                                </div>
-                                <div class="col-6">
-                                    <p></p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6 font-weight-bold">
-                                    <p class="card-text">Longitude :</p>
-                                </div>
-                                <div class="col-6">
-                                    <p></p>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>

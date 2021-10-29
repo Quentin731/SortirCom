@@ -47,8 +47,8 @@
                                     {{ sortie.tripName }}
                                 {% endif %}
                             </td>
-                            <td>{{ sortie.tripStartDate|date("m/d/Y") }}</td>
-                            <td>{{ sortie.endDate|date("m/d/Y") }}</td>
+                            <td>{{ sortie.tripStartDate|date("d/m/Y") }}</td>
+                            <td>{{ sortie.endDate|date("d/m/Y") }}</td>
                             <td>{{ sortie.getSizeOfUsers() }}/{{ sortie.capacity }}</td>
                             <td>{{ sortie.getEtatToString() }}</td>
                             <td>
@@ -59,7 +59,7 @@
                             {% endif %}
                             <td>
                                 {% if app.user == sortie.organizer or app.user != null and 'ROLE_ADMIN' in app.user.getroles(TRUE) %}
-                                    <a href="#" class="btn btn-outline-primary btn-floating"><i class="fas fa-edit"></i></a>
+                                    <a href="{{ path('editTrip',{ 'id': sortie.id }) }}" class="btn btn-outline-primary btn-floating"><i class="fas fa-edit"></i></a>
                                     <a href="{{ path('cancelation',{ 'id': sortie.id }) }}"
                                        class="btn btn-outline-danger btn-floating"><i class="fas fa-trash"></i></a>
                                 {% endif %}
@@ -70,7 +70,7 @@
                                        class="btn btn-outline-danger btn-floating"><i class="fas fa-times"></i></a>
                                 {% endif %}
                                 {% if app.user == null %}
-                                    <a href="#" class="btn btn-outline-primary">Connexion</a>
+                                    <a href="{{ path('app_login') }}" class="btn btn-outline-primary">Connexion</a>
                                 {% endif %}
                             </td>
                         </tr>
